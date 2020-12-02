@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/CyberArenaMiniApp/static/css/main.981f7211.chunk.css",
+    "main.js": "/CyberArenaMiniApp/static/js/main.e14453b2.chunk.js",
+    "main.js.map": "/CyberArenaMiniApp/static/js/main.e14453b2.chunk.js.map",
+    "runtime-main.js": "/CyberArenaMiniApp/static/js/runtime-main.32698aae.js",
+    "runtime-main.js.map": "/CyberArenaMiniApp/static/js/runtime-main.32698aae.js.map",
+    "static/css/2.86df01db.chunk.css": "/CyberArenaMiniApp/static/css/2.86df01db.chunk.css",
+    "static/js/2.e40626fe.chunk.js": "/CyberArenaMiniApp/static/js/2.e40626fe.chunk.js",
+    "static/js/2.e40626fe.chunk.js.map": "/CyberArenaMiniApp/static/js/2.e40626fe.chunk.js.map",
+    "index.html": "/CyberArenaMiniApp/index.html",
+    "precache-manifest.3b51c07db57860728f4a9bedfcedf977.js": "/CyberArenaMiniApp/precache-manifest.3b51c07db57860728f4a9bedfcedf977.js",
+    "service-worker.js": "/CyberArenaMiniApp/service-worker.js",
+    "static/css/2.86df01db.chunk.css.map": "/CyberArenaMiniApp/static/css/2.86df01db.chunk.css.map",
+    "static/css/main.981f7211.chunk.css.map": "/CyberArenaMiniApp/static/css/main.981f7211.chunk.css.map",
+    "static/js/2.e40626fe.chunk.js.LICENSE.txt": "/CyberArenaMiniApp/static/js/2.e40626fe.chunk.js.LICENSE.txt",
+    "static/media/persik.png": "/CyberArenaMiniApp/static/media/persik.4e1ec840.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.32698aae.js",
+    "static/css/2.86df01db.chunk.css",
+    "static/js/2.e40626fe.chunk.js",
+    "static/css/main.981f7211.chunk.css",
+    "static/js/main.e14453b2.chunk.js"
+  ]
+}
