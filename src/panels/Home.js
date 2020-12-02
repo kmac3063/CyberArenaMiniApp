@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
@@ -7,29 +7,53 @@ import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
+import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
+import {IOS, platform, Tabs, TabsItem} from "@vkontakte/vkui";
+import StrManager from "../StrManager";
+import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
+import Icon24Back from '@vkontakte/icons/dist/24/back';
+import Constants from "../Constants";
+import Tournament from "../tabs/Tournament";
+import Tavern from "../tabs/Tavern";
+import Profile from "../tabs/Profile";
 
-const Home = ({ id, go, fetchedUser }) => (
-	<Panel id={id}>
-		<PanelHeader>Example</PanelHeader>
-		{fetchedUser &&
-		<Group title="User Data Fetched with VK Bridge">
-			<Cell
-				before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-				description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-			>
-				{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
-			</Cell>
-		</Group>}
 
-		<Group title="Navigation Example">
-			<Div>
-				<Button size="xl" level="2" onClick={go} data-to="persik">
-					Show me the Persik, please
-				</Button>
-			</Div>
-		</Group>
-	</Panel>
-);
+
+const Home = ({ id, go, fetchedUser }) => {
+	const [activeTab, setActiveTab] = useState(Constants.HomeTabs.TOURNAMENT)
+
+	const showTab = () => {
+		switch (activeTab) {
+			case Constants.HomeTabs.TOURNAMENT:
+				return <Tournament/>
+			case Constants.HomeTabs.TAVERN:
+				return <Tavern/>
+			case Constants.HomeTabs.PROFILE:
+				return <Profile/>
+		}
+		return null
+	}
+	return (<Panel id={id}>
+		<PanelHeader>
+			{StrManager.get(StrManager.StrEnum.APP_NAME)}
+		</PanelHeader>
+		<Tabs>
+			<TabsItem onClick={() => setActiveTab(Constants.HomeTabs.TOURNAMENT)}
+					  selected={activeTab === Constants.HomeTabs.TOURNAMENT}>
+				{StrManager.get(StrManager.StrEnum.TOURNAMENT_TAB)}
+			</TabsItem>
+			<TabsItem onClick={() => setActiveTab(Constants.HomeTabs.TAVERN)}
+					  selected={activeTab === Constants.HomeTabs.TAVERN}>
+				{StrManager.get(StrManager.StrEnum.TAVERN_TAB)}
+			</TabsItem>
+			<TabsItem onClick={() => setActiveTab(Constants.HomeTabs.PROFILE)}
+					  selected={activeTab === Constants.HomeTabs.PROFILE}>
+				{StrManager.get(StrManager.StrEnum.PROFILE_TAB)}
+			</TabsItem>
+		</Tabs>
+		{showTab()}
+	</Panel>)
+};
 
 Home.propTypes = {
 	id: PropTypes.string.isRequired,
@@ -44,4 +68,4 @@ Home.propTypes = {
 	}),
 };
 
-export default Home;
+export default Home

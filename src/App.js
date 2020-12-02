@@ -26,7 +26,23 @@ const App = () => {
 			setUser(user);
 			setPopout(null);
 		}
+		// async function setLocale() {
+		// 	let xhr = new XMLHttpRequest();
+		// 	xhr.open('GET', `https://api.vk.com/method/users.get?user_ids=${fetchedUser.id}&fields=lang&access_token=${Token.token}&v=5.126`, false);
+		// 	xhr.send();
+		//
+		// 	let locale = "default"
+		// 	if (xhr.status != 200) {
+		// 		console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+		// 	} else {
+		// 		locale = xhr.response.lang;
+		// 		console.log(locale);
+		// 	}
+		// 	StrManager.setLocale(locale);
+		// }
+
 		fetchData();
+		//setLocale();
 	}, []);
 
 	const go = e => {
@@ -36,7 +52,6 @@ const App = () => {
 	return (
 		<View activePanel={activePanel} popout={popout}>
 			<Home id='home' fetchedUser={fetchedUser} go={go} />
-			<Persik id='persik' go={go} />
 		</View>
 	);
 }
