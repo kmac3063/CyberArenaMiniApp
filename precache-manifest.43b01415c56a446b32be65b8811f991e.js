@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "617f884458a0781ec158cab1798ebb0f",
+    "revision": "cc97fe2da7cc86b5cec0307585f62a93",
     "url": "/CyberArenaMiniApp/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/CyberArenaMiniApp/static/css/2.86df01db.chunk.css"
   },
   {
-    "revision": "f452a3083ad65235e55b",
+    "revision": "bd992dd1b1acc2babb76",
     "url": "/CyberArenaMiniApp/static/css/main.981f7211.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/CyberArenaMiniApp/static/js/2.a8889480.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f452a3083ad65235e55b",
-    "url": "/CyberArenaMiniApp/static/js/main.d5eebb22.chunk.js"
+    "revision": "bd992dd1b1acc2babb76",
+    "url": "/CyberArenaMiniApp/static/js/main.d90ccb94.chunk.js"
   },
   {
     "revision": "d683fc2ed1c4257b020e",

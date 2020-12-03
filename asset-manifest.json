@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/CyberArenaMiniApp/static/css/main.981f7211.chunk.css",
-    "main.js": "/CyberArenaMiniApp/static/js/main.d5eebb22.chunk.js",
-    "main.js.map": "/CyberArenaMiniApp/static/js/main.d5eebb22.chunk.js.map",
+    "main.js": "/CyberArenaMiniApp/static/js/main.d90ccb94.chunk.js",
+    "main.js.map": "/CyberArenaMiniApp/static/js/main.d90ccb94.chunk.js.map",
     "runtime-main.js": "/CyberArenaMiniApp/static/js/runtime-main.32698aae.js",
     "runtime-main.js.map": "/CyberArenaMiniApp/static/js/runtime-main.32698aae.js.map",
     "static/css/2.86df01db.chunk.css": "/CyberArenaMiniApp/static/css/2.86df01db.chunk.css",
     "static/js/2.a8889480.chunk.js": "/CyberArenaMiniApp/static/js/2.a8889480.chunk.js",
     "static/js/2.a8889480.chunk.js.map": "/CyberArenaMiniApp/static/js/2.a8889480.chunk.js.map",
     "index.html": "/CyberArenaMiniApp/index.html",
-    "precache-manifest.6ddebaa90cedb73ab36b326578f1b4f9.js": "/CyberArenaMiniApp/precache-manifest.6ddebaa90cedb73ab36b326578f1b4f9.js",
+    "precache-manifest.43b01415c56a446b32be65b8811f991e.js": "/CyberArenaMiniApp/precache-manifest.43b01415c56a446b32be65b8811f991e.js",
     "service-worker.js": "/CyberArenaMiniApp/service-worker.js",
     "static/css/2.86df01db.chunk.css.map": "/CyberArenaMiniApp/static/css/2.86df01db.chunk.css.map",
     "static/css/main.981f7211.chunk.css.map": "/CyberArenaMiniApp/static/css/main.981f7211.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.86df01db.chunk.css",
     "static/js/2.a8889480.chunk.js",
     "static/css/main.981f7211.chunk.css",
-    "static/js/main.d5eebb22.chunk.js"
+    "static/js/main.d90ccb94.chunk.js"
   ]
 }

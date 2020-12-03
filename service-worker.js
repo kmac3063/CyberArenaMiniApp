@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/CyberArenaMiniApp/precache-manifest.6ddebaa90cedb73ab36b326578f1b4f9.js"
+  "/CyberArenaMiniApp/precache-manifest.43b01415c56a446b32be65b8811f991e.js"
 );
 
 self.addEventListener('message', (event) => {
