@@ -9,10 +9,10 @@ import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
 import {IOS, platform, Tabs, TabsItem} from "@vkontakte/vkui";
-import StrManager from "../StrManager";
+import StrManager from "../Model/StrManager";
 import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
-import Constants from "../Constants";
+import Constants from "../Model/Constants";
 import Tournament from "../tabs/Tournament";
 import Tavern from "../tabs/Tavern";
 import Profile from "../tabs/Profile";
@@ -25,7 +25,7 @@ const Home = ({ id, go, fetchedUser }) => {
 	const showTab = () => {
 		switch (activeTab) {
 			case Constants.HomeTabs.TOURNAMENT:
-				return <Tournament/>
+				return <Tournament fetchedUser={fetchedUser}/>
 			case Constants.HomeTabs.TAVERN:
 				return <Tavern/>
 			case Constants.HomeTabs.PROFILE:

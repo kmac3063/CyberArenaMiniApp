@@ -13,13 +13,17 @@ const App = () => {
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
+	const schemeAttribute = document.createAttribute('scheme');
+	schemeAttribute.value = 'space_gray';
+	document.body.attributes.setNamedItem(schemeAttribute);
+
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
-			if (type === 'VKWebAppUpdateConfig') {
-				const schemeAttribute = document.createAttribute('scheme');
-				schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
-				document.body.attributes.setNamedItem(schemeAttribute);
-			}
+			// if (type === 'VKWebAppUpdateConfig') {
+			// 	const schemeAttribute = document.createAttribute('scheme');
+			// 	schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
+			// 	document.body.attributes.setNamedItem(schemeAttribute);
+			// }
 		});
 		async function fetchData() {
 			const user = await bridge.send('VKWebAppGetUserInfo');

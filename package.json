@@ -1,7 +1,7 @@
 {
-  "name": "CyberArenaMiniApp",
+  "name": "cyberarenaminiapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "[<img width=\"134\" src=\"https://vk.com/images/apps/mini_apps/vk_mini_apps_logo.svg\">](https://vk.com/services)",
   "homepage": "http://kmac3063.github.io/CyberArenaMiniApp",
   "main": "index.js",
   "scripts": {
@@ -14,25 +14,30 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "cross-env": "^5.2.0",
+    "@vkontakte/icons": "^1.60.0",
+    "@vkontakte/vkui": "^3.13.2",
+    "cross-env": "^7.0.3",
     "gh-pages": "^3.1.0",
-    "react-hot-loader": "^4.9.0",
-    "react-scripts": "^3.4.1"
+    "react-hot-loader": "^4.13.0",
+    "react-scripts": "^4.0.1"
+  },
+  "peerDependencies": {
+    "@vkontakte/icons": "^1.60.0",
+    "@vkontakte/vkui": "^3.13.2"
   },
   "dependencies": {
-    "@vkontakte/icons": "^1.18.2",
     "@vkontakte/vk-bridge": "^2.3.0",
-    "@vkontakte/vk-miniapps-deploy": "0.0.17",
-    "@vkontakte/vkui": "^3.5.0",
+    "@vkontakte/vk-miniapps-deploy": "0.0.22",
+    "@vkontakte/vkui": "^3.13.2",
     "babel-eslint": "^10.1.0",
-    "chalk": "^2.4.2",
-    "core-js": "^3.6.4",
-    "eruda": "^2.2.0",
+    "chalk": "^4.1.0",
+    "core-js": "^3.8.0",
+    "eruda": "^2.4.1",
     "eruda-code": "^2.0.0",
     "eruda-dom": "^2.0.0",
     "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "browserslist": {
     "production": [
@@ -45,5 +50,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kmac3063/CyberArenaMiniApp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kmac3063/CyberArenaMiniApp/issues"
   }
 }

@@ -1,10 +1,8 @@
-import "core-js/features/map";
-import "core-js/features/set";
-import React from "react";
-import ReactDOM from "react-dom";
 import bridge from "@vkontakte/vk-bridge";
+import StrManager from "./Model/StrManager";
 import App from "./App";
-import StrManager from "./StrManager";
+import React from "react";
+import ReactDOM from 'react-dom';
 
 // Init VK  Mini App
 bridge.send("VKWebAppInit");
