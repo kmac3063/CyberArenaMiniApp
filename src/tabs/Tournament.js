@@ -13,6 +13,7 @@ import Banner from "@vkontakte/vkui/dist/components/Banner/Banner";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import CardImage from "../Componentns/CardImage";
 import Gamepad from "../img/gamepad.png"
+import CreateTournamentBanner from "../banners/CreateTournamentBanner";
 
 const Tournament = ({fetchedUser}) => {
     const [myTournaments, setMyTournaments] = useState([])
@@ -33,6 +34,7 @@ const Tournament = ({fetchedUser}) => {
         <Header aside={<Icon24Add style={{color : Constants.Colors.Dark.CONTEXT_BUTTON}}/>}>
             <Title level="3" weight="regular"> Мои турниры</Title>
         </Header>
+
         {myTournamentsLoad ? <Spinner size={"medium"}/> :
         myTournaments.length ?
         <CardScroll style={{height : "6rem"}}>
@@ -42,40 +44,16 @@ const Tournament = ({fetchedUser}) => {
                                height={"5.6rem"} />
                 </Card>
             })}
-        </CardScroll> :
-            <Banner
-                mode="image"
-                header="Вы ещё не создали ни одного турнира"
-                subheader="Разблокировано 9 из 36"
-                background={
-                    <div
-                        style={{
-                            backgroundImage:  'linear-gradient(135deg, #4AB34C 0%, #34F038 100%)',
-                            backgroundPosition: 'right bottom',
-                            backgroundSize: "100%",
-                            backgroundRepeat: 'no-repeat',
-                        }}
-                    >
-                        <div
-                            style={{
-                                backgroundImage: `url(${Gamepad})`,
-                                backgroundPosition: 'right bottom',
-                                backgroundSize: "50%",
-                                backgroundRepeat: 'no-repeat',
-                                height: "100%",
-                                opacity: 0.25,
-                            }}
-                        />
-                    </div>
-                }
-                actions={<Button mode="overlay_primary">Подробнее</Button>}
-            />
+        </CardScroll> : <CreateTournamentBanner/>
         }
-        <Group>
 
+        <Header>
+            <Title level="3" weight="regular">Рекомендуемые турниры</Title>
+        </Header>
+
+        <Group>
             Ваши турниры
             123
-
         </Group>
     </React.Fragment>
 }
