@@ -42,7 +42,7 @@ const App = () => {
 		// }
 
 		fetchData();
-		//setLocale();
+		//setLocale();1
 	}, []);
 
 	const go = e => {
