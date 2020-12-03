@@ -1,59 +1,98 @@
 import React, {useEffect, useState} from 'react'
-import {Avatar, CardScroll, Cell, Group, Header, Headline, Search, Separator, Spinner} from "@vkontakte/vkui";
+import {CardScroll, Group, Header, ModalPage, Search, Separator, Spinner} from "@vkontakte/vkui";
 import Icon24Add from '@vkontakte/icons/dist/24/add';
-import SimpleCell from "@vkontakte/vkui/dist/components/SimpleCell/SimpleCell";
-import RichCell from "@vkontakte/vkui/dist/components/RichCell/RichCell";
 import Title from "@vkontakte/vkui/dist/components/Typography/Title/Title";
 import Icon24VoiceOutline from '@vkontakte/icons/dist/24/voice_outline';
 import Constants from "../Model/Constants";
 import Card from "@vkontakte/vkui/dist/components/Card/Card";
 import Data from "../Model/Data";
-import Div from "@vkontakte/vkui/dist/components/Div/Div";
-import Banner from "@vkontakte/vkui/dist/components/Banner/Banner";
-import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import CardImage from "../Componentns/CardImage";
-import Gamepad from "../img/gamepad.png"
-import CreateTournamentBanner from "../banners/CreateTournamentBanner";
+import TournamentBanner from "../banners/TournamentBanner";
+import CreateTournament from "../modals/CreateTournament";
+import ModalRoot from "@vkontakte/vkui/dist/components/ModalRoot/ModalRoot";
 
-const Tournament = ({fetchedUser}) => {
-    const [myTournaments, setMyTournaments] = useState([])
-    const [myTournamentsLoad, setMyTournamentsLoading] = useState(true)
-
+const Tournament = ({fetchedUser, go, tournamentSelect}) => {
+    const [myTournaments, setMyTournaments] = useState(Data.getLoadTournaments(4))
+    const [myTournamentsLoading, setMyTournamentsLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
+    const [activeModal, setActiveModal] = useState(null)
 
     useEffect(() => {
+        //setTimeout(() => setLoading(false), 3000)
+        setLoading(false)
         Data.getTournaments(1)//fetchedUser.id)
             .then(tournaments => {
+                tournaments = tournaments.map((t) => {
+                    t.imgUrl = "https://sun9-11.userapi.com/impg/56aSuUx41cqW9S9VgbIG-dHVrNni1Xb9hdvfig/5eQATCO-X7U.jpg?size=1080x1080&quality=96&proxy=1&sign=58272f3f74d4d6af0b14a0046629b52f"
+                    return t;
+                })
+                setTimeout(() => {setMyTournaments(tournaments)
+                }, 1000)
                 //setMyTournaments(tournaments)
                 setMyTournamentsLoading(false)
             })
     }, [])
 
-    return <React.Fragment>
+    const closeModal = () => {
+        setActiveModal(null)
+    }
+
+    const outModal = (props) => {
+        closeModal();
+    }
+
+    const createTournament = (props) => {
+
+        closeModal()
+    }
+
+    return loading ? <Spinner size="medium" style={{marginTop : "50%"}}/> :
+    <React.Fragment>
+        <ModalRoot activeModal={activeModal}>
+            <CreateTournament id={Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT}
+                out={outModal}
+                onClose={closeModal}
+                create={createTournament}
+                />
+
+        </ModalRoot>
         <Search icon={<Icon24VoiceOutline/>}/>
         <Separator/>
-        <Header aside={<Icon24Add style={{color : Constants.Colors.Dark.CONTEXT_BUTTON}}/>}>
-            <Title level="3" weight="regular"> Мои турниры</Title>
-        </Header>
 
-        {myTournamentsLoad ? <Spinner size={"medium"}/> :
-        myTournaments.length ?
-        <CardScroll style={{height : "6rem"}}>
-            {myTournaments.map((tournament) => {
-                return <Card key={tournament.id} style={{height : "6rem", width : "10rem"}}>
-                    <CardImage url={"https://sun5-3.userapi.com/impg/9rU0yZN00DBOszZFvCy22D5XzQ6QLThUO9w03w/W3lY-oqSmfo.jpg?size=1062x900&quality=96&proxy=1&sign=9eb0b16cb02eb98a7fa175103d4d17d5"}
-                               height={"5.6rem"} />
-                </Card>
-            })}
-        </CardScroll> : <CreateTournamentBanner/>
-        }
+        <Group separator={"hide"} style={{height: "9rem"}}>
+            <Header aside={<Icon24Add style={{color : Constants.Colors.Dark.CONTEXT_BUTTON}}
+                                      onClick={() => {setMyTournaments([])}}/>}>
+                <Title level="3" weight="regular"> Мои турниры</Title>
+            </Header>
+            {!myTournaments.length? <Group separator={"hide"} style={{position : "relative", zIndex : 0, top: "-12px"}}>
+                    <TournamentBanner
+                        style={{height : 200}}
+                        buttonPressed={() => setActiveModal(Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT)}/> </Group>:
+                <CardScroll style={{height : "6rem", marginBottom : 12}}>
+                    {myTournaments.map((tournament) => {
+                        return <Card key={tournament.id}
+                                     style={{height : "6.475rem", width : "10rem"}}
+                                     onClick={(e)=>{
+                                         if (!myTournamentsLoading) {
+                                             tournamentSelect(tournament.id)
+                                             go(e)}
+                                     }}
+                                     data-to = {Constants.Panels.TOURNAMENT_INFO}>
+                            <CardImage url={tournament.imgUrl} height={"6.3rem"}/>
+                        </Card>
+                    })
+
+                    }
+                </CardScroll>
+            }
+        </Group>
+
 
         <Header>
             <Title level="3" weight="regular">Рекомендуемые турниры</Title>
         </Header>
 
         <Group>
-            Ваши турниры
-            123
         </Group>
     </React.Fragment>
 }

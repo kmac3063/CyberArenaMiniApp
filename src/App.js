@@ -6,12 +6,15 @@ import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
 import Persik from './panels/Persik';
+import Constants from "./Model/Constants";
+import TournamentInfo from "./panels/TournamentInfo";
 
 const App = () => {
 	//"deploy": "vk-miniapps-deploy" в scripts в package.json
-	const [activePanel, setActivePanel] = useState('home');
+	const [activePanel, setActivePanel] = useState(Constants.Panels.HOME);
+	const [selectedTournamentId, setSelectedTournamentId] = useState(null);
 	const [fetchedUser, setUser] = useState(null);
-	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+	const [popout, setPopout] = useState(null)//<ScreenSpinner size='large' />);
 
 	const schemeAttribute = document.createAttribute('scheme');
 	schemeAttribute.value = 'space_gray';
@@ -50,12 +53,25 @@ const App = () => {
 	}, []);
 
 	const go = e => {
-		setActivePanel(e.currentTarget.dataset.to);
+		let panel = e.currentTarget.dataset.to
+		setActivePanel(panel);
 	};
+
+	const tournamentSelect = (tournamentId) => {
+		console.log("tournamentSelect : " + tournamentId)
+		setSelectedTournamentId(tournamentId)
+	}
 
 	return (
 		<View activePanel={activePanel} popout={popout}>
-			<Home id='home' fetchedUser={fetchedUser} go={go} />
+			<Home id={Constants.Panels.HOME}
+				  fetchedUser={fetchedUser}
+				  go={go}
+				  tournamentSelect={tournamentSelect}/>
+			<TournamentInfo id ={Constants.Panels.TOURNAMENT_INFO}
+							tournamentId={selectedTournamentId}
+							go={go}
+			/>
 		</View>
 	);
 }

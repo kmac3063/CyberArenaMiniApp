@@ -19,16 +19,18 @@ import Profile from "../tabs/Profile";
 
 
 
-const Home = ({ id, go, fetchedUser }) => {
-	const [activeTab, setActiveTab] = useState(Constants.HomeTabs.TOURNAMENT)
+const Home = ({ id, fetchedUser, go, tournamentSelect}) => {
+	const [activeTab, setActiveTab] = useState(Constants.Tabs.HOME_TOURNAMENT)
 
 	const showTab = () => {
 		switch (activeTab) {
-			case Constants.HomeTabs.TOURNAMENT:
-				return <Tournament fetchedUser={fetchedUser}/>
-			case Constants.HomeTabs.TAVERN:
+			case Constants.Tabs.HOME_TOURNAMENT:
+				return <Tournament fetchedUser={fetchedUser}
+								   go={go}
+								   tournamentSelect={tournamentSelect}/>
+			case Constants.Tabs.HOME_TAVERN:
 				return <Tavern/>
-			case Constants.HomeTabs.PROFILE:
+			case Constants.Tabs.HOME_PROFILE:
 				return <Profile/>
 		}
 		return null
@@ -38,16 +40,16 @@ const Home = ({ id, go, fetchedUser }) => {
 			{StrManager.get(StrManager.StrEnum.APP_NAME)}
 		</PanelHeader>
 		<Tabs>
-			<TabsItem onClick={() => setActiveTab(Constants.HomeTabs.TOURNAMENT)}
-					  selected={activeTab === Constants.HomeTabs.TOURNAMENT}>
+			<TabsItem onClick={() => setActiveTab(Constants.Tabs.HOME_TOURNAMENT)}
+					  selected={activeTab === Constants.Tabs.HOME_TOURNAMENT}>
 				{StrManager.get(StrManager.StrEnum.TOURNAMENT_TAB)}
 			</TabsItem>
-			<TabsItem onClick={() => setActiveTab(Constants.HomeTabs.TAVERN)}
-					  selected={activeTab === Constants.HomeTabs.TAVERN}>
+			<TabsItem onClick={() => setActiveTab(Constants.Tabs.HOME_TAVERN)}
+					  selected={activeTab === Constants.Tabs.HOME_TAVERN}>
 				{StrManager.get(StrManager.StrEnum.TAVERN_TAB)}
 			</TabsItem>
-			<TabsItem onClick={() => setActiveTab(Constants.HomeTabs.PROFILE)}
-					  selected={activeTab === Constants.HomeTabs.PROFILE}>
+			<TabsItem onClick={() => setActiveTab(Constants.Tabs.HOME_PROFILE)}
+					  selected={activeTab === Constants.Tabs.HOME_PROFILE}>
 				{StrManager.get(StrManager.StrEnum.PROFILE_TAB)}
 			</TabsItem>
 		</Tabs>

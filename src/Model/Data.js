@@ -1,3 +1,5 @@
+import DefaultTournamentPreview from "../img/default_tournament_preview.png"
+
 class Data {
     static getTournaments(userId) {
         return fetch("https://jsonplaceholder.typicode.com/photos?id=1&id=3&id=4")
@@ -10,6 +12,16 @@ class Data {
         //     resolve([t1, t2])
         // })
         // return {}
+    }
+
+    static getLoadTournaments(n = 4) {
+        let tournaments = []
+        while (n--) {
+            tournaments.push(
+                {imgUrl : DefaultTournamentPreview,
+                id: n + 1})
+        }
+        return tournaments
     }
 }
 

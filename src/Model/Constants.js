@@ -1,8 +1,8 @@
 class Constants {
-    static HomeTabs = {
-        TOURNAMENT : 1,
-        TAVERN : 2,
-        PROFILE : 3,
+    static Tabs = {
+        HOME_TOURNAMENT : "1",
+        HOME_TAVERN : "2",
+        HOME_PROFILE : "3",
     }
 
     static Colors = {
@@ -12,6 +12,15 @@ class Constants {
         Grey : {
 
         },
+    }
+
+    static Panels = {
+        HOME: "1",
+        TOURNAMENT_INFO : "2",
+    }
+
+    static Modals = {
+        TOURNAMENT_CREATE_TOURNAMENT: "1",
     }
 }
 

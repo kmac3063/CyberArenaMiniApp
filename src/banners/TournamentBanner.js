@@ -3,7 +3,7 @@ import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import Banner from "@vkontakte/vkui/dist/components/Banner/Banner";
 import React from "react";
 
-const CreateTournamentBanner = () => {
+const TournamentBanner = ({buttonPressed}) => {
     return <Banner
         mode="image"
         header="Вы ещё не создали ни одного турнира"
@@ -29,8 +29,8 @@ const CreateTournamentBanner = () => {
                 />
             </div>
         }
-        actions={<Button mode="overlay_primary">Создать</Button>}
+        actions={<Button mode="overlay_primary" onClick={buttonPressed}>Создать</Button>}
     />
 }
 
-export default CreateTournamentBanner
+export default TournamentBanner
