@@ -14,7 +14,7 @@ const App = () => {
 	const [activePanel, setActivePanel] = useState(Constants.Panels.HOME);
 	const [selectedTournamentId, setSelectedTournamentId] = useState(null);
 	const [fetchedUser, setUser] = useState(null);
-	const [popout, setPopout] = useState(null)//<ScreenSpinner size='large' />);
+	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
 	const schemeAttribute = document.createAttribute('scheme');
 	schemeAttribute.value = 'space_gray';
@@ -31,7 +31,7 @@ const App = () => {
 		async function fetchData() {
 			const user = await bridge.send('VKWebAppGetUserInfo');
 			setUser(user);
-			setPopout(null);
+			setPopout(null)
 		}
 		// async function setLocale() {
 		// 	let xhr = new XMLHttpRequest();
@@ -58,7 +58,6 @@ const App = () => {
 	};
 
 	const tournamentSelect = (tournamentId) => {
-		console.log("tournamentSelect : " + tournamentId)
 		setSelectedTournamentId(tournamentId)
 	}
 

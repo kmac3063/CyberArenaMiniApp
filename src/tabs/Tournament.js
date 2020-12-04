@@ -10,28 +10,71 @@ import CardImage from "../Componentns/CardImage";
 import TournamentBanner from "../banners/TournamentBanner";
 import CreateTournament from "../modals/CreateTournament";
 import ModalRoot from "@vkontakte/vkui/dist/components/ModalRoot/ModalRoot";
+import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
+import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
 const Tournament = ({fetchedUser, go, tournamentSelect}) => {
+    const [loading, setLoading] = useState(false)
+
     const [myTournaments, setMyTournaments] = useState(Data.getLoadTournaments(4))
     const [myTournamentsLoading, setMyTournamentsLoading] = useState(true)
-    const [loading, setLoading] = useState(true)
+
+    const [participateTournaments, setParticipateTournaments] = useState(Data.getLoadTournaments(4))
+    const [participateTournamentsLoading, setParticipateTournamentsLoading] = useState(true)
+
+    const [recommendedTournaments, setRecommendedTournaments] = useState(Data.getLoadTournaments(4))
+    const [recommendedTournamentsLoading, setRecommendedTournamentsLoading] = useState(true)
+
+    const [highlyRecommendedTournaments, setHighlyRecommendedTournaments] = useState(Data.getLoadTournaments(4))
+    const [highlyRecommendedTournamentsLoading, setHighlyRecommendedTournamentsLoading] = useState(true)
+
     const [activeModal, setActiveModal] = useState(null)
 
     useEffect(() => {
-        //setTimeout(() => setLoading(false), 3000)
         setLoading(false)
-        Data.getTournaments(1)//fetchedUser.id)
-            .then(tournaments => {
-                tournaments = tournaments.map((t) => {
-                    t.imgUrl = "https://sun9-11.userapi.com/impg/56aSuUx41cqW9S9VgbIG-dHVrNni1Xb9hdvfig/5eQATCO-X7U.jpg?size=1080x1080&quality=96&proxy=1&sign=58272f3f74d4d6af0b14a0046629b52f"
-                    return t;
-                })
-                setTimeout(() => {setMyTournaments(tournaments)
-                }, 1000)
-                //setMyTournaments(tournaments)
-                setMyTournamentsLoading(false)
-            })
     }, [])
+
+    const loadAll = () => {
+        if (myTournamentsLoading) {
+            Data.getMyTournaments(fetchedUser)
+                .then(tournaments => {
+                    setTimeout(() => {
+                        setMyTournaments(tournaments)
+                    }, 0)
+                    setMyTournamentsLoading(false)
+                })
+        }
+
+        if (participateTournamentsLoading) {
+            Data.getParticipateTournaments(fetchedUser)
+                .then(tournaments => {
+                    setTimeout(() => {
+                        setParticipateTournaments(tournaments)
+                    }, 0)
+                    setParticipateTournamentsLoading(false)
+                })
+        }
+
+        if (recommendedTournamentsLoading) {
+            Data.getRecommendedTournaments(fetchedUser)
+                .then(tournaments => {
+                    setTimeout(() => {
+                        setRecommendedTournaments(tournaments)
+                    }, 0)
+                    setRecommendedTournamentsLoading(false)
+                })
+        }
+
+        if (highlyRecommendedTournamentsLoading) {
+            Data.getHighlyRecommendedTournaments(fetchedUser)
+                .then(tournaments => {
+                    setTimeout(() => {
+                        setHighlyRecommendedTournaments(tournaments)
+                    }, 0)
+                    setHighlyRecommendedTournamentsLoading(false)
+                })
+        }
+    }
 
     const closeModal = () => {
         setActiveModal(null)
@@ -46,53 +89,93 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
         closeModal()
     }
 
-    return loading ? <Spinner size="medium" style={{marginTop : "50%"}}/> :
-    <React.Fragment>
+    return <React.Fragment>
         <ModalRoot activeModal={activeModal}>
             <CreateTournament id={Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT}
                 out={outModal}
                 onClose={closeModal}
-                create={createTournament}
-                />
-
+                create={createTournament}/>
         </ModalRoot>
         <Search icon={<Icon24VoiceOutline/>}/>
         <Separator/>
 
-        <Group separator={"hide"} style={{height: "9rem"}}>
-            <Header aside={<Icon24Add style={{color : Constants.Colors.Dark.CONTEXT_BUTTON}}
-                                      onClick={() => {setMyTournaments([])}}/>}>
+        {!loading && fetchedUser ? loadAll() : null}
+
+        <Group separator={"hide"} style={{height: "11rem"}}
+            header={<Header aside={<Icon24Add style={{color : Constants.Colors.Dark.CONTEXT_BUTTON}}
+                                              onClick={() => {setMyTournaments([])}}/>}>
                 <Title level="3" weight="regular"> Мои турниры</Title>
-            </Header>
-            {!myTournaments.length? <Group separator={"hide"} style={{position : "relative", zIndex : 0, top: "-12px"}}>
-                    <TournamentBanner
-                        style={{height : 200}}
-                        buttonPressed={() => setActiveModal(Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT)}/> </Group>:
+            </Header>}>
+
+            {(myTournamentsLoading || myTournaments.length) ?
                 <CardScroll style={{height : "6rem", marginBottom : 12}}>
                     {myTournaments.map((tournament) => {
                         return <Card key={tournament.id}
-                                     style={{height : "6.475rem", width : "10rem"}}
+                                     style={{height : "7.475rem", width : "10rem"}}
                                      onClick={(e)=>{
                                          if (!myTournamentsLoading) {
                                              tournamentSelect(tournament.id)
                                              go(e)}
                                      }}
                                      data-to = {Constants.Panels.TOURNAMENT_INFO}>
-                            <CardImage url={tournament.imgUrl} height={"6.3rem"}/>
+                            <CardImage url={tournament.imgUrl} height={"7rem"}/>
                         </Card>
                     })
-
                     }
-                </CardScroll>
+                </CardScroll> :
+                <Group separator={"hide"} style={{position : "relative", zIndex : 0, top: "-12px"}}>
+                    <TournamentBanner
+                        buttonPressed={() => setActiveModal(Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT)}/>
+                </Group>
             }
         </Group>
 
+        {participateTournamentsLoading || participateTournaments.length ?
+        <Group separator={'hide'}
+               style={{position : "relative", zIndex : 0}}
+               header={<Header>
+            <Title level="3" weight="regular">Турниры, в которых я участвую</Title>
+        </Header>}>
 
-        <Header>
-            <Title level="3" weight="regular">Рекомендуемые турниры</Title>
-        </Header>
+            <CardScroll style={{height : "6rem", marginBottom : 12}}>
+                {participateTournaments.map((tournament) => {
+                    return <Card key={tournament.id}
+                                 style={{height : "5.18rem", width : "7.2rem"}}
+                                 onClick={(e)=>{
+                                     if (!participateTournamentsLoading) {
+                                         tournamentSelect(tournament.id)
+                                         go(e)}
+                                 }}
+                                 data-to = {Constants.Panels.TOURNAMENT_INFO}>
+                        <CardImage url={tournament.imgUrl} height={"4.8rem"}/>
+                    </Card>
+                })
+                }
+            </CardScroll>
 
-        <Group>
+        </Group> : null}
+
+        <Group
+            separator={'hide'}
+            header={<Header>
+                <Title level="3" weight="regular">Рекомендуемые турниры</Title>
+                </Header>}
+        style={{marginBottom: 50, position : "relative", zIndex : 0}}>
+            <Gallery
+                slideWidth="90%"
+                align="center"
+                style={{ height: 150 }}
+                bullets={'dark'}
+            >
+                {highlyRecommendedTournaments.map((t) => {
+                    return <Div style={{backgroundImage : `url(${t.imgUrl})`,
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover"}}>
+
+                    </Div>})
+                }
+            </Gallery>
         </Group>
     </React.Fragment>
 }
