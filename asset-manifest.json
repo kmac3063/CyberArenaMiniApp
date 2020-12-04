@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/CyberArenaMiniApp/static/css/main.94d9d93e.chunk.css",
-    "main.js": "/CyberArenaMiniApp/static/js/main.dd3080ba.chunk.js",
-    "main.js.map": "/CyberArenaMiniApp/static/js/main.dd3080ba.chunk.js.map",
+    "main.js": "/CyberArenaMiniApp/static/js/main.78df208e.chunk.js",
+    "main.js.map": "/CyberArenaMiniApp/static/js/main.78df208e.chunk.js.map",
     "runtime-main.js": "/CyberArenaMiniApp/static/js/runtime-main.d9f4fe1c.js",
     "runtime-main.js.map": "/CyberArenaMiniApp/static/js/runtime-main.d9f4fe1c.js.map",
     "static/css/2.4df9e7ca.chunk.css": "/CyberArenaMiniApp/static/css/2.4df9e7ca.chunk.css",
-    "static/js/2.12de8966.chunk.js": "/CyberArenaMiniApp/static/js/2.12de8966.chunk.js",
-    "static/js/2.12de8966.chunk.js.map": "/CyberArenaMiniApp/static/js/2.12de8966.chunk.js.map",
+    "static/js/2.4b0c41af.chunk.js": "/CyberArenaMiniApp/static/js/2.4b0c41af.chunk.js",
+    "static/js/2.4b0c41af.chunk.js.map": "/CyberArenaMiniApp/static/js/2.4b0c41af.chunk.js.map",
     "index.html": "/CyberArenaMiniApp/index.html",
     "static/css/2.4df9e7ca.chunk.css.map": "/CyberArenaMiniApp/static/css/2.4df9e7ca.chunk.css.map",
     "static/css/main.94d9d93e.chunk.css.map": "/CyberArenaMiniApp/static/css/main.94d9d93e.chunk.css.map",
-    "static/js/2.12de8966.chunk.js.LICENSE.txt": "/CyberArenaMiniApp/static/js/2.12de8966.chunk.js.LICENSE.txt",
+    "static/js/2.4b0c41af.chunk.js.LICENSE.txt": "/CyberArenaMiniApp/static/js/2.4b0c41af.chunk.js.LICENSE.txt",
     "static/media/default_tournament_preview.a1e4057e.png": "/CyberArenaMiniApp/static/media/default_tournament_preview.a1e4057e.png",
     "static/media/persik.ae9f0072.png": "/CyberArenaMiniApp/static/media/persik.ae9f0072.png"
   },
   "entrypoints": [
     "static/js/runtime-main.d9f4fe1c.js",
     "static/css/2.4df9e7ca.chunk.css",
-    "static/js/2.12de8966.chunk.js",
+    "static/js/2.4b0c41af.chunk.js",
     "static/css/main.94d9d93e.chunk.css",
-    "static/js/main.dd3080ba.chunk.js"
+    "static/js/main.78df208e.chunk.js"
   ]
 }
