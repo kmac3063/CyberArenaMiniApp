@@ -15,7 +15,7 @@ import SimpleCell from "@vkontakte/vkui/dist/components/SimpleCell/SimpleCell";
 import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
 import Caption from "@vkontakte/vkui/dist/components/Typography/Caption/Caption";
-import "../Styles.css"
+import "../styles.css"
 import Coliseum from "../img/coliseum.png";
 import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
 
@@ -34,7 +34,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
     const [highlyRecommendedTournaments, setHighlyRecommendedTournaments] = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.LARGE))
     const [highlyRecommendedTournamentsLoading, setHighlyRecommendedTournamentsLoading] = useState(true)
 
-    const [activeModal, setActiveModal] = useState(Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT)
+    const [activeModal, setActiveModal] = useState(null)
 
     const [searchValue, setSearchValue] = useState()
     const [searchOnFocus, setSearchOnFocus] = useState(false)
@@ -101,6 +101,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
 
     }
 
+    // For test
     const hide = () => {
         if (myTournaments.length) {
             setMyTournaments([])
@@ -134,7 +135,9 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
 
     }
 
-    return !fetchedUser ? <Spinner size={"large"} style={{position:"relative", marginTop:"50%"}}/> : <React.Fragment>
+    return <React.Fragment>
+        {!loading ? loadAll() : null}
+
         <ModalRoot activeModal={activeModal}>
             <CreateTournament id={Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT}
                 out={outModal}
@@ -148,8 +151,6 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                 onFocus={()=>{setSearchOnFocus(true)}}
                 onBlur={()=>{setSearchOnFocus(false)}}/>
         <Separator/>
-
-        {!loading ? loadAll() : null}
 
         {searchValue && searchValue.length > 0 ?
             <Group separator={'hide'}
@@ -282,7 +283,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                     slideWidth="90%"
                     align="center"
                     style={{ height: 180 }}
-                    bullets={'dark'}
+                    bullets={'light'}
                 >
                     {highlyRecommendedTournaments.map((tournament) => {
                         return <Div key={tournament.id}
@@ -330,7 +331,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                                     <React.Fragment>
                                         <Caption level="2" weight="regular">Игра: {tournament.gameName}</Caption>
                                         <Caption level="2" weight="regular">Тип сетки: {tournament.type}</Caption>
-                                        <Caption level="2" weight="regular">Начало: {tournament.date}</Caption>
+                                        <Caption level="2" weight="regular">Начало: {tournament.dateBegin}</Caption>
                                     </React.Fragment>
                                 }>{tournament.name}
                             </SimpleCell>)

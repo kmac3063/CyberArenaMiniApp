@@ -13,3 +13,13 @@
     border-radius: 2px;
     margin-bottom: 5px;
 }
+
+.profile_place_holder {
+    background-color : #37383A;
+    height : 16px;
+    padding: 0;
+    width: 70%;
+    border-radius: 2px;
+    margin-bottom: 5px;
+    margin-top: 6px
+}

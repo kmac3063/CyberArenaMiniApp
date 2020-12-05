@@ -16,21 +16,26 @@ class StrManager {
             [this.StrEnum.PROFILE_TAB, "Профиль"],
         ])
 
-        //let en = {}
+        let en = {}
 
-        if (lang === 'default')
-            lang = 'ru'
+        let ge = {}
+
+        let fr = {}
 
         switch (lang) {
-            case 'ru':
-                this.localeWords = ru;
-                break;
             case 'en':
+                this.localeWords = en;
                 break;
             case 'ge':
+                this.localeWords = ge;
                 break;
             case 'fr':
+                this.localeWords = fr;
                 break;
+            case 'ru':
+            case 'default':
+            default:
+                this.localeWords = ru;
         }
     }
 

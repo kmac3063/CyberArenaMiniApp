@@ -90,7 +90,6 @@ const CreateTournament = ({id, out, close, create}) => {
         }
     }
 
-    //to do исправить баг - функция выдают результат для предыдущих данных, так как они могут не успеть обновиться
     const checkAllRequireField = () => {
         setAllRequireFieldChecked(
             tourName && tourName.length > 0 &&

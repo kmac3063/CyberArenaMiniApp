@@ -8,7 +8,7 @@ import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
-import {IOS, platform, Tabs, TabsItem} from "@vkontakte/vkui";
+import {IOS, platform, Spinner, Tabs, TabsItem} from "@vkontakte/vkui";
 import StrManager from "../Model/StrManager";
 import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
@@ -31,7 +31,8 @@ const Home = ({ id, fetchedUser, go, tournamentSelect}) => {
 			case Constants.Tabs.HOME_TAVERN:
 				return <Tavern/>
 			case Constants.Tabs.HOME_PROFILE:
-				return <Profile/>
+				return <Profile fetchedUser={fetchedUser}
+								go={go}/>
 		}
 		return null
 	}
@@ -53,7 +54,8 @@ const Home = ({ id, fetchedUser, go, tournamentSelect}) => {
 				{StrManager.get(StrManager.StrEnum.PROFILE_TAB)}
 			</TabsItem>
 		</Tabs>
-		{showTab()}
+		{fetchedUser ? showTab() :
+			<Spinner size={"large"} style={{position:"relative", marginTop:"50%"}}/>}
 	</Panel>)
 };
 

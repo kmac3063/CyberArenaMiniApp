@@ -1,5 +1,6 @@
 class Constants {
-    static NUMBER_OF_HIGHLY_REC_TOURNAMENT =  5
+    static NUMBER_OF_HIGHLY_REC_TOURNAMENT = 5
+    static MAX_NICKNAME_LENGTH = 25
 
     static Tabs = {
         HOME_TOURNAMENT : "1",
