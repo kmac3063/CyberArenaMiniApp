@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Group, Header, Search, Separator} from "@vkontakte/vkui";
+import {Button, Group, Header, Search, Separator, Spinner} from "@vkontakte/vkui";
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 import Title from "@vkontakte/vkui/dist/components/Typography/Title/Title";
 import Icon24VoiceOutline from '@vkontakte/icons/dist/24/voice_outline';
@@ -76,7 +76,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                     setTimeout(() => {
                         setRecommendedTournaments(tournaments)
                         setRecommendedTournamentsLoading(false)
-                    }, 2000)
+                    }, 200000)
                 })
         }
 
@@ -90,7 +90,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
         closeModal();
     }
 
-    const createTournament = (props) => {
+    const createTournament = (tournament) => {
 
         closeModal()
     }
@@ -109,7 +109,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
         }
     }
 
-    return <React.Fragment>
+    return !fetchedUser ? <Spinner size={"large"} style={{position:"relative", marginTop:"50%"}}/> : <React.Fragment>
         <ModalRoot activeModal={activeModal}>
             <CreateTournament id={Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT}
                 out={outModal}
@@ -119,7 +119,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
         <Search icon={<Icon24VoiceOutline/>}/>
         <Separator/>
 
-        {!loading && fetchedUser ? loadAll() : null}
+        {!loading ? loadAll() : null}
 
         <Group separator={"hide"} style={{height: 160}}
             header={<Header aside={
@@ -226,9 +226,9 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                         before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
                         description={
                             <React.Fragment>
+                                <Caption><Div className={'recommend_place_holder_descr'} style={{marginTop : 6}}/></Caption>
                                 <Caption><Div className={'recommend_place_holder_descr'}/></Caption>
-                                <Caption><Div className={'recommend_place_holder_descr'}/></Caption>
-                                <Caption><Div className={'recommend_place_holder_descr'}/></Caption>
+                                <Caption><Div className={'recommend_place_holder_descr'} style={{marginBottom: 0}}/></Caption>
                             </React.Fragment>
                         }><Div className={'recommend_place_holder_name'}/></SimpleCell>
                         :

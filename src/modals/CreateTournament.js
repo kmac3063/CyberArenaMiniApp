@@ -12,12 +12,8 @@ import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
 const CreateTournament = ({id, out, onClose, create}) => {
     const [tourName, setTourName] = useState("Example");
-    const [dateBegin1, setDateBegin1] = useState();
-    const [dateBegin2, setDateBegin2] = useState();
-    const [dateBegin3, setDateBegin3] = useState();
-    const [dateEnd1, setDateEnd1] = useState();
-    const [dateEnd2, setDateEnd2] = useState();
-    const [dateEnd3, setDateEnd3] = useState();
+    const [dateBegin, setDateBegin] = useState();
+    const [dateEnd, setDateEnd] = useState();
     const [ruleText, setRuleText] = useState();
     const [tourType, setTourType] = useState();
     const [maxCommand, setMaxCommand] = useState();

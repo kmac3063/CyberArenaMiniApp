@@ -62,7 +62,7 @@ const App = () => {
 	}
 
 	return (
-		<View activePanel={activePanel} popout={popout}>
+		<View activePanel={activePanel} popout={null/*popout*/}>
 			<Home id={Constants.Panels.HOME}
 				  fetchedUser={fetchedUser}
 				  go={go}
