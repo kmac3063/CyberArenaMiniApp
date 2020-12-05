@@ -1,4 +1,6 @@
 class Constants {
+    static NUMBER_OF_HIGHLY_REC_TOURNAMENT =  5
+
     static Tabs = {
         HOME_TOURNAMENT : "1",
         HOME_TAVERN : "2",
@@ -21,6 +23,13 @@ class Constants {
 
     static Modals = {
         TOURNAMENT_CREATE_TOURNAMENT: "1",
+    }
+
+    static TournamentsPreviewSize = {
+        SMALL : "1",
+        MEDIUM : "2",
+        LARGE : "3",
+        XLARGE: "4",
     }
 }
 

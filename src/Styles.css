@@ -1,0 +1,16 @@
+.recommend_place_holder_name {
+    background-color : #37383A;
+    height : 12px;
+    padding: 0;
+    border-radius: 3px;
+    margin-bottom: 4px;
+}
+
+.recommend_place_holder_descr {
+    background-color : #37383A;
+    height : 8px;
+    padding: 0;
+    width: 70%;
+    border-radius: 2px;
+    margin-bottom: 4px;
+}

@@ -1,4 +1,7 @@
-import DefaultTournamentPreview from "../img/default_tournament_preview.png"
+import sTournamentPreview from "../img/100x100_tournament_preview.png"
+import mTournamentPreview from "../img/200x120_tournament_preview.png"
+import lTournamentPreview from "../img/400x240_tournament_preview.png"
+import Constants from "./Constants";
 
 class Data {
     static getMyTournaments(user) {
@@ -28,11 +31,23 @@ class Data {
         return this.getMyTournaments(userId);
     }
 
-    static getLoadTournaments(n) {
+    static getLoadTournaments(n, size) {
+        let img
+        switch (size) {
+            case Constants.TournamentsPreviewSize.SMALL:
+                img = sTournamentPreview;
+                break;
+            case Constants.TournamentsPreviewSize.LARGE:
+                img = lTournamentPreview
+                break
+            case Constants.TournamentsPreviewSize.MEDIUM:
+            default:
+                img = mTournamentPreview
+        }
         let tournaments = []
         while (n--) {
             tournaments.push(
-                {imgUrl : DefaultTournamentPreview,
+                {imgUrl : img,
                 id: n + 1})
         }
         return tournaments

@@ -15,20 +15,21 @@ import SimpleCell from "@vkontakte/vkui/dist/components/SimpleCell/SimpleCell";
 import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
 import Caption from "@vkontakte/vkui/dist/components/Typography/Caption/Caption";
+import "../Styles.css"
 
 const Tournament = ({fetchedUser, go, tournamentSelect}) => {
     const [loading, setLoading] = useState(false)
 
-    const [myTournaments, setMyTournaments] = useState(Data.getLoadTournaments(4))
+    const [myTournaments, setMyTournaments] = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.MEDIUM))
     const [myTournamentsLoading, setMyTournamentsLoading] = useState(true)
 
-    const [participateTournaments, setParticipateTournaments] = useState(Data.getLoadTournaments(4))
+    const [participateTournaments, setParticipateTournaments] = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.MEDIUM))
     const [participateTournamentsLoading, setParticipateTournamentsLoading] = useState(true)
 
-    const [recommendedTournaments, setRecommendedTournaments] = useState(Data.getLoadTournaments(4))
+    const [recommendedTournaments, setRecommendedTournaments] = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.SMALL))
     const [recommendedTournamentsLoading, setRecommendedTournamentsLoading] = useState(true)
 
-    const [highlyRecommendedTournaments, setHighlyRecommendedTournaments] = useState(Data.getLoadTournaments(4))
+    const [highlyRecommendedTournaments, setHighlyRecommendedTournaments] = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.LARGE))
     const [highlyRecommendedTournamentsLoading, setHighlyRecommendedTournamentsLoading] = useState(true)
 
     const [activeModal, setActiveModal] = useState(null)
@@ -58,25 +59,27 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                 })
         }
 
+        if (highlyRecommendedTournamentsLoading) {
+            Data.getHighlyRecommendedTournaments(fetchedUser)
+                .then(tournaments => {
+                    setTimeout(() => {
+                        setHighlyRecommendedTournaments(
+                            tournaments.slice(0, Math.min(Constants.NUMBER_OF_HIGHLY_REC_TOURNAMENT, tournaments.length)))
+                    }, 0)
+                    setHighlyRecommendedTournamentsLoading(false)
+                })
+        }
+
         if (recommendedTournamentsLoading) {
             Data.getRecommendedTournaments(fetchedUser)
                 .then(tournaments => {
                     setTimeout(() => {
                         setRecommendedTournaments(tournaments)
-                    }, 0)
-                    setRecommendedTournamentsLoading(false)
+                        setRecommendedTournamentsLoading(false)
+                    }, 2000)
                 })
         }
 
-        if (highlyRecommendedTournamentsLoading) {
-            Data.getHighlyRecommendedTournaments(fetchedUser)
-                .then(tournaments => {
-                    setTimeout(() => {
-                        setHighlyRecommendedTournaments(tournaments)
-                    }, 0)
-                    setHighlyRecommendedTournamentsLoading(false)
-                })
-        }
     }
 
     const closeModal = () => {
@@ -215,19 +218,31 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
             </Gallery>
         </Group>
 
+
         <Group separator={'hide'}
                style={{position : "relative", zIndex : 0}}>
-                {recommendedTournaments.map((tournament) =>
-                    <SimpleCell
+                {recommendedTournaments.map((tournament) => {
+                    return (recommendedTournamentsLoading ? <SimpleCell
                         before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
                         description={
                             <React.Fragment>
-                                <Caption level="2" weight="regular" >Игра: {tournament.gameName}Игра: {tournament.gameName}Игра: {tournament.gameName}Игра: {tournament.gameName}Игра: {tournament.gameName}</Caption>
-                                <Caption level="2" weight="regular">Тип сетки: {tournament.type}</Caption>
-                                <Caption level="2" weight="regular">Начало: {tournament.date}</Caption>
+                                <Caption><Div className={'recommend_place_holder_descr'}/></Caption>
+                                <Caption><Div className={'recommend_place_holder_descr'}/></Caption>
+                                <Caption><Div className={'recommend_place_holder_descr'}/></Caption>
                             </React.Fragment>
-                        }>{tournament.name}</SimpleCell>)}
-
+                        }><Div className={'recommend_place_holder_name'}/></SimpleCell>
+                        :
+                        <SimpleCell
+                            before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
+                            description={
+                                <React.Fragment>
+                                    <Caption level="2" weight="regular" >Игра: {tournament.gameName}</Caption>
+                                    <Caption level="2" weight="regular">Тип сетки: {tournament.type}</Caption>
+                                    <Caption level="2" weight="regular">Начало: {tournament.date}</Caption>
+                                </React.Fragment>
+                            }>{tournament.name}
+                        </SimpleCell>)
+                })}
         </Group>
     </React.Fragment>
 }
