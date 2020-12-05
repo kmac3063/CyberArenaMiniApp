@@ -26,7 +26,7 @@ class Constants {
     }
 
     static TournamentsPreviewSize = {
-        SMALL : "1",
+        SMALL_QUAD : "1",
         MEDIUM : "2",
         LARGE : "3",
         XLARGE: "4",

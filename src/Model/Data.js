@@ -14,27 +14,28 @@ class Data {
                     t.gameName = "Paladins"
                     t.type = "Single elimination"
                     t.date = "18.12.2000"
+                    t.description = "DOTA 2 dota 2 cs go cs:go 123   igor dasha kasha"
                     return t}
                 )
             )
     }
 
-    static getRecommendedTournaments(userId) {
-        return this.getMyTournaments(userId);
+    static getRecommendedTournaments(user) {
+        return this.getMyTournaments(user);
     }
 
-    static getParticipateTournaments(userId) {
-        return this.getMyTournaments(userId);
+    static getParticipateTournaments(user) {
+        return this.getMyTournaments(user);
     }
 
-    static getHighlyRecommendedTournaments(userId) {
-        return this.getMyTournaments(userId);
+    static getHighlyRecommendedTournaments(user) {
+        return this.getMyTournaments(user);
     }
 
     static getLoadTournaments(n, size) {
         let img
         switch (size) {
-            case Constants.TournamentsPreviewSize.SMALL:
+            case Constants.TournamentsPreviewSize.SMALL_QUAD:
                 img = sTournamentPreview;
                 break;
             case Constants.TournamentsPreviewSize.LARGE:
@@ -51,6 +52,10 @@ class Data {
                 id: n + 1})
         }
         return tournaments
+    }
+
+    static getAllTournaments(user) {
+        return this.getMyTournaments(user);
     }
 }
 
