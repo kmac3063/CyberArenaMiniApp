@@ -7,7 +7,10 @@ class Data {
             .then(tournaments =>
                 tournaments.map((t) => {
                     t.imgUrl = user.photo_200;
-                    // надо возвращать сам турнир
+                    t.name = "Paladins Pro Circuit 1/4 final"
+                    t.gameName = "Paladins"
+                    t.type = "Single elimination"
+                    t.date = "18.12.2000"
                     return t}
                 )
             )
