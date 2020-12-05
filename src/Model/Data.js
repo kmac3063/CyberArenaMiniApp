@@ -14,7 +14,7 @@ class Data {
                     t.gameName = "Paladins"
                     t.type = "Single elimination"
                     t.date = "18.12.2000"
-                    t.description = "DOTA 2 dota 2 cs go cs:go 123   igor dasha kasha"
+                    t.description = "DOTA 2 dota 2 cs go cs:go 123 igor dasha kasha"
                     return t}
                 )
             )
@@ -56,6 +56,32 @@ class Data {
 
     static getAllTournaments(user) {
         return this.getMyTournaments(user);
+    }
+
+    static getGameList() {
+        let names = [
+            "HearthStone",
+            "Starcraft",
+            "Dota 2",
+            "CS:GO",
+            "Шахматы",
+            "UNO",
+            "OverWatch",
+            "Warface",
+            "Warcraft Arena",
+            "CS 1.6",
+            "Paladins",
+            "LOL",
+            "HEROES of the STORM",
+            "ARTIFACT",
+            "GWENT",
+            "VALORANT",
+        ];
+        let games = []
+        for (let i = 0; i < names.length; i++) {
+            games.push({name : names[i], id : i + 1})
+        }
+        return games
     }
 }
 

@@ -31,6 +31,24 @@ class Constants {
         LARGE : "3",
         XLARGE: "4",
     }
+
+    static SelectValue = {
+        TournamentGridType : {
+            SINGLE_ELIMINATION : "1"
+        },
+        TournamentPrivateType : {
+            OPEN : "1",
+            PRIVATE : "2",
+        }
+    };
+
+    static RadioValue = {
+        TournamentGroupType : {
+            SOLO : "1",
+            GROUP : "2",
+        },
+
+    }
 }
 
 export default Constants

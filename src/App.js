@@ -8,6 +8,7 @@ import Home from './panels/Home';
 import Persik from './panels/Persik';
 import Constants from "./Model/Constants";
 import TournamentInfo from "./panels/TournamentInfo";
+import StrManager from "./Model/StrManager";
 
 const App = () => {
 	//"deploy": "vk-miniapps-deploy" в scripts в package.json
@@ -21,6 +22,10 @@ const App = () => {
 	document.body.attributes.setNamedItem(schemeAttribute);
 
 	useEffect(() => {
+		let t = window.location.search.indexOf("vk_language=");
+		let locale = window.location.search.slice(t + "vk_language=".length, t + "vk_language=".length + 2)
+		StrManager.setLocale(locale)
+
 		bridge.subscribe(({ detail: { type, data }}) => {
 			// if (type === 'VKWebAppUpdateConfig') {
 			// 	const schemeAttribute = document.createAttribute('scheme');

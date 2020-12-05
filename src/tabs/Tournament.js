@@ -34,7 +34,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
     const [highlyRecommendedTournaments, setHighlyRecommendedTournaments] = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.LARGE))
     const [highlyRecommendedTournamentsLoading, setHighlyRecommendedTournamentsLoading] = useState(true)
 
-    const [activeModal, setActiveModal] = useState(null)
+    const [activeModal, setActiveModal] = useState(Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT)
 
     const [searchValue, setSearchValue] = useState()
     const [searchOnFocus, setSearchOnFocus] = useState(false)
@@ -83,7 +83,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                     setTimeout(() => {
                         setRecommendedTournaments(tournaments)
                         setRecommendedTournamentsLoading(false)
-                    }, 200000)
+                    }, 0)
                 })
         }
 
@@ -94,12 +94,11 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
     }
 
     const outModal = (props) => {
-        closeModal();
+
     }
 
     const createTournament = (tournament) => {
 
-        closeModal()
     }
 
     const hide = () => {
@@ -120,13 +119,13 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
         let text = e.target.value
         setSearchValue(text)
 
-        if (!text || text.length === 0) return
+        if (!text || text.length === 0) return null
         setSearchValueLoading(true)
-        text = text.trim()
+        text = text.trim().toLowerCase()
         Data.getAllTournaments(fetchedUser)
             .then(tournaments => {
                 tournaments = tournaments.filter((t) =>
-                    t.name.includes(text) || t.description.includes(text))
+                    t.name.toLowerCase().includes(text) || t.description.toLowerCase().includes(text))
                 setTimeout(() => {
                     setSearchFilterTournaments(tournaments)
                     setSearchValueLoading(false)
@@ -134,12 +133,14 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
             })
 
     }
+
     return !fetchedUser ? <Spinner size={"large"} style={{position:"relative", marginTop:"50%"}}/> : <React.Fragment>
         <ModalRoot activeModal={activeModal}>
             <CreateTournament id={Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT}
                 out={outModal}
-                onClose={closeModal}
-                create={createTournament}/>
+                close={closeModal}
+                create={createTournament}
+                onClose={closeModal}/>
         </ModalRoot>
 
         <Search icon={!searchValue || !searchValue.length ? <Icon24VoiceOutline/> : null} value={searchValue}
@@ -155,7 +156,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                                 style={{position : "relative", zIndex : 0}}>
                 {searchValueLoading ?
                     Data.getLoadTournaments(6, Constants.TournamentsPreviewSize.SMALL_QUAD).map((tournament) =>{
-                        return <SimpleCell
+                        return <SimpleCell key={tournament.id}
                             before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
                             description={
                                 <React.Fragment>
@@ -168,9 +169,14 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                     }) :
                     searchFilterTournaments.length ?
                     searchFilterTournaments.map((tournament) =>{
-                        return <SimpleCell
-                            before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
-                            description={
+                        return <SimpleCell key={tournament.id}
+                                onClick={(e) => {
+                                   tournamentSelect(tournament.id)
+                                   go(e)
+                                }}
+                                data-to = {Constants.Panels.TOURNAMENT_INFO}
+                                before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
+                                description={
                                 <React.Fragment>
                                     <Caption level="2" weight="regular" >Игра: {tournament.gameName}</Caption>
                                     <Caption level="2" weight="regular">Тип сетки: {tournament.type}</Caption>
@@ -181,20 +187,24 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                     }) : <Placeholder
                             icon={<img src={Coliseum} height={"50%"} width={"50%"}/>}
                             header="Ничего не найдено"
-                        >
-                            Ты че ваще написал?)
-                        </Placeholder>}
+                        />}
             </Group>
         : <React.Fragment>
+
+            {/* Список турниров, созданных пользователем */}
             <Group separator={"hide"} style={{height: 160}}
                 header={<Header aside={
+                    // For test
                     // <Icon24Add style={{color : Constants.Colors.Dark.CONTEXT_BUTTON}}
                     //           onClick={() => {!participateTournaments.length ?
                     //               setParticipateTournaments(Data.getLoadTournaments(4)):
                     //               setParticipateTournaments([])}}
                     // />
-                    //For test
-                    <Button  mode="tertiary" onClick={hide}>Hide</Button>
+                    // For test
+                    // <Button  mode="tertiary" onClick={hide}>Hide</Button>
+                    <Icon24Add style={{color : Constants.Colors.Dark.CONTEXT_BUTTON}}
+                               onClick={() => setActiveModal(Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT)}
+                    />
                 }>
                     <Title level="3" weight="regular"> Мои турниры</Title>
                 </Header>}>
@@ -228,6 +238,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                 }
             </Group>
 
+            {/* Список турниров, в которых я участвую */}
             {participateTournamentsLoading || participateTournaments.length ?
             <Group separator={'hide'}
                    style={{position : "relative", zIndex : 0}}
@@ -260,6 +271,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
 
             </Group> : null}
 
+            {/* Список особо рекомендуемых турниров */}
             <Group
                 separator={'hide'}
                 header={<Header>
@@ -272,22 +284,31 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                     style={{ height: 180 }}
                     bullets={'dark'}
                 >
-                    {highlyRecommendedTournaments.map((t) => {
-                        return <Div key={t.id} style={{backgroundImage : `url(${t.imgUrl})`,
-                            backgroundPosition: "center",
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "cover"}}>
+                    {highlyRecommendedTournaments.map((tournament) => {
+                        return <Div key={tournament.id}
+                            onClick={(e)=>{
+                                if (!highlyRecommendedTournamentsLoading) {
+                                    tournamentSelect(tournament.id)
+                                    go(e)
+                                }
+                            }}
+                            data-to = {Constants.Panels.TOURNAMENT_INFO}
+                            style={{backgroundImage : `url(${tournament.imgUrl})`,
+                                backgroundPosition: "center",
+                                backgroundRepeat: "no-repeat",
+                                backgroundSize: "cover"}}>
 
                         </Div>})
                     }
                 </Gallery>
             </Group>
 
-
+            {/*Бесконечный список турниров*/}
             <Group separator={'hide'}
                    style={{position : "relative", zIndex : 0}}>
                     {recommendedTournaments.map((tournament) => {
                         return (recommendedTournamentsLoading ? <SimpleCell
+                            key={tournament.id}
                             before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
                             description={
                                 <React.Fragment>
@@ -298,10 +319,16 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                             }><Div className={'recommend_place_holder_name'}/></SimpleCell>
                             :
                             <SimpleCell
+                                key={tournament.id}
+                                onClick={(e)=>{
+                                    tournamentSelect(tournament.id)
+                                    go(e)
+                                }}
+                                data-to = {Constants.Panels.TOURNAMENT_INFO}
                                 before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
                                 description={
                                     <React.Fragment>
-                                        <Caption level="2" weight="regular" >Игра: {tournament.gameName}</Caption>
+                                        <Caption level="2" weight="regular">Игра: {tournament.gameName}</Caption>
                                         <Caption level="2" weight="regular">Тип сетки: {tournament.type}</Caption>
                                         <Caption level="2" weight="regular">Начало: {tournament.date}</Caption>
                                     </React.Fragment>
