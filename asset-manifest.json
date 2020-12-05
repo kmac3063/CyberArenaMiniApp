@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/CyberArenaMiniApp/static/css/main.405f3c9a.chunk.css",
-    "main.js": "/CyberArenaMiniApp/static/js/main.50fccbe7.chunk.js",
-    "main.js.map": "/CyberArenaMiniApp/static/js/main.50fccbe7.chunk.js.map",
+    "main.css": "/CyberArenaMiniApp/static/css/main.7a10a108.chunk.css",
+    "main.js": "/CyberArenaMiniApp/static/js/main.7c4b0df4.chunk.js",
+    "main.js.map": "/CyberArenaMiniApp/static/js/main.7c4b0df4.chunk.js.map",
     "runtime-main.js": "/CyberArenaMiniApp/static/js/runtime-main.d9f4fe1c.js",
     "runtime-main.js.map": "/CyberArenaMiniApp/static/js/runtime-main.d9f4fe1c.js.map",
     "static/css/2.4df9e7ca.chunk.css": "/CyberArenaMiniApp/static/css/2.4df9e7ca.chunk.css",
-    "static/js/2.79b1c6cc.chunk.js": "/CyberArenaMiniApp/static/js/2.79b1c6cc.chunk.js",
-    "static/js/2.79b1c6cc.chunk.js.map": "/CyberArenaMiniApp/static/js/2.79b1c6cc.chunk.js.map",
+    "static/js/2.d809850d.chunk.js": "/CyberArenaMiniApp/static/js/2.d809850d.chunk.js",
+    "static/js/2.d809850d.chunk.js.map": "/CyberArenaMiniApp/static/js/2.d809850d.chunk.js.map",
     "index.html": "/CyberArenaMiniApp/index.html",
     "static/css/2.4df9e7ca.chunk.css.map": "/CyberArenaMiniApp/static/css/2.4df9e7ca.chunk.css.map",
-    "static/css/main.405f3c9a.chunk.css.map": "/CyberArenaMiniApp/static/css/main.405f3c9a.chunk.css.map",
-    "static/js/2.79b1c6cc.chunk.js.LICENSE.txt": "/CyberArenaMiniApp/static/js/2.79b1c6cc.chunk.js.LICENSE.txt",
+    "static/css/main.7a10a108.chunk.css.map": "/CyberArenaMiniApp/static/css/main.7a10a108.chunk.css.map",
+    "static/js/2.d809850d.chunk.js.LICENSE.txt": "/CyberArenaMiniApp/static/js/2.d809850d.chunk.js.LICENSE.txt",
     "static/media/100x100_tournament_preview.9fbb3fec.png": "/CyberArenaMiniApp/static/media/100x100_tournament_preview.9fbb3fec.png",
     "static/media/200x120_tournament_preview.a1e4057e.png": "/CyberArenaMiniApp/static/media/200x120_tournament_preview.a1e4057e.png",
     "static/media/400x240_tournament_preview.0f47ce69.png": "/CyberArenaMiniApp/static/media/400x240_tournament_preview.0f47ce69.png",
@@ -20,8 +20,8 @@
   "entrypoints": [
     "static/js/runtime-main.d9f4fe1c.js",
     "static/css/2.4df9e7ca.chunk.css",
-    "static/js/2.79b1c6cc.chunk.js",
-    "static/css/main.405f3c9a.chunk.css",
-    "static/js/main.50fccbe7.chunk.js"
+    "static/js/2.d809850d.chunk.js",
+    "static/css/main.7a10a108.chunk.css",
+    "static/js/main.7c4b0df4.chunk.js"
   ]
 }
