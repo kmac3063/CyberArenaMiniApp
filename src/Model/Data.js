@@ -3,6 +3,13 @@ import mTournamentPreview from "../img/200x120_tournament_preview.png"
 import lTournamentPreview from "../img/400x240_tournament_preview.png"
 import Constants from "./Constants";
 
+import a1 from '../img/avatars/1.png'
+import a2 from '../img/avatars/2.png'
+import a3 from '../img/avatars/3.png'
+import a4 from '../img/avatars/4.png'
+import a5 from '../img/avatars/5.png'
+import a6 from '../img/avatars/6.png'
+
 class Data {
     static getMyTournaments(user) {
         return fetch("https://jsonplaceholder.typicode.com/photos?id=1&id=2&id=3&id=4&id=5&id=6&id=7")
@@ -125,6 +132,20 @@ class Data {
                 nickname : "amazingMan777",
                 games : "Among us, DOTA 2, PUBG"
         }
+    }
+
+    static getAvatars() {
+        return [
+            {imgURL : a1, id : 1},
+            {imgURL : a2, id : 2},
+            {imgURL : a3, id : 3},
+            {imgURL : a4, id : 4},
+            {imgURL : a5, id : 5},
+            {imgURL : a6, id : 6},
+            {imgURL : a2, id : 7},
+            {imgURL : a1, id : 8},
+            {imgURL : a4, id : 9},
+        ];
     }
 }
 

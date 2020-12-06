@@ -12,7 +12,6 @@ import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import Data from "../Model/Data";
 import Constants from "../Model/Constants";
 import Icon24Camera from "@vkontakte/icons/dist/24/camera";
-import PopoutWrapper from "@vkontakte/vkui/dist/components/PopoutWrapper/PopoutWrapper";
 
 const CreateTournament = ({id, out, close, create}) => {
     // const [tourName, setTourName] = useState("Example");
@@ -139,7 +138,7 @@ const CreateTournament = ({id, out, close, create}) => {
                     Создание турнира
                 </ModalPageHeader>
             }
-            onClose={() => {out(); close()}}
+            onClose={out}
         >
 
         <FormLayout>

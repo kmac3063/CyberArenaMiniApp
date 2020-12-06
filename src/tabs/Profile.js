@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Group from "@vkontakte/vkui/dist/components/Group/Group";
 import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
-import {FormLayout, Input, SimpleCell, Textarea} from "@vkontakte/vkui";
+import {FormLayout, Input, ModalPage, ModalRoot, SimpleCell, Textarea} from "@vkontakte/vkui";
 import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
 import defaultAvatar from "../img/120x120_default_аvatar.png"
 import Data from "../Model/Data";
@@ -20,17 +20,22 @@ import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import Constants from "../Model/Constants";
 import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
 import Headline from "@vkontakte/vkui/dist/components/Typography/Headline/Headline";
+import ChangeAvatar from "../modals/ChangeAvatar";
 
 const Profile = ({fetchedUser}) => {
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState(null)
+
     const [popOut, setPopOut] = useState(null)
+    const [activeModal, setActiveModal] = useState(null)
 
     const [tempNickname, setTempNickname] = useState()
     const [needNewNickname, setNeedNewNickname] = useState(false)
 
     const [gamesDescription, setGamesDescription] = useState()
     const [needNewGamesDescription, setNeedNewGamesDescription] = useState(false)
+
+    // const [newAvatar, setNewAvatar] = useState(null)
 
     useEffect(() => {
         if (!user) {
@@ -39,32 +44,38 @@ const Profile = ({fetchedUser}) => {
             setLoading(false)
             setGamesDescription(t.games)
         }
-        if (needNewNickname || needNewGamesDescription) {
+        if (needNewNickname || needNewGamesDescription/* || newAvatar*/) {
             saveData()
         }
-    }, [needNewNickname, needNewGamesDescription])
+    }, [needNewNickname, needNewGamesDescription/*, newAvatar*/])
 
     const saveData = () => {
         if (needNewNickname) {
             if (user && tempNickname && tempNickname.length) {
-                let t = tempNickname
+                let correctNickname = tempNickname
                     .slice(0, Math.min(tempNickname.length, Constants.MAX_NICKNAME_LENGTH))
                     .trim();
-                if (t && t.length) {
-                    user.nickname = t
-                    // отправляем на сервер
-                    console.log("save nick " + t)
+                if (correctNickname && correctNickname.length) {
+                    user.nickname = correctNickname
+                    // TO-DO отправляем на сервер
                 }
             }
             setTempNickname(null)
             setNeedNewNickname(false)
         }
+
         if (needNewGamesDescription) {
             user.games = gamesDescription
-            //отправляем на сервер
+            // TO-DO отправляем на сервер
             setNeedNewGamesDescription(false)
-            console.log("save games" + gamesDescription)
         }
+
+        // if (newAvatar) {
+        //     console.log("SaveData new avatar")
+        //     user.avatarURL = newAvatar
+        //     // TO-DO отправляем на сервер
+        //     setNewAvatar(null)
+        // }
     }
 
     const popout = () => <Alert
@@ -95,19 +106,29 @@ const Profile = ({fetchedUser}) => {
             </FormLayoutGroup>
         </Alert>
 
+    const setNewAvatar = (newAvatarURL) => {
+        user.avatarURL = newAvatarURL
+        console.log("SaveData new avatar")
+        // TO-DO отправить на сервер
+    }
+
     return (<View popout={popOut}><Group >
+        <ModalRoot activeModal={activeModal}>
+            <ChangeAvatar id={Constants.Modals.PROFILE_CHANGE_AVATAR}
+                        changeAvatar={setNewAvatar}
+                        onClose={() => setActiveModal(null)}/>
+        </ModalRoot>
         <Header mode="secondary">Информация о пользователе</Header>
 
-        <Group>
-            <SimpleCell>
+        <Group style={{position : "relative", zIndex : 0}}>
+            <SimpleCell onClick={() => setActiveModal(Constants.Modals.PROFILE_CHANGE_AVATAR)}>
                 <InfoRow header="Аватар">
                     <Avatar size={84} src={loading ? defaultAvatar : user.avatarURL}
-                            style={{marginTop:10}}
-                            onClick={() => {}}/>
+                            style={{marginTop:10, objectFit: "cover"}}/>
                 </InfoRow>
             </SimpleCell>
         </Group>
-        <Group>
+        <Group style={{position : "relative", zIndex : 0}}>
             <SimpleCell multiline>
                 <InfoRow header="Никнейм" onClick={() => setPopOut(popout)}>
                     {loading ? <Div className={'profile_place_holder'}/>
@@ -144,7 +165,7 @@ const Profile = ({fetchedUser}) => {
             </SimpleCell>
         </Group>
 
-        <SimpleCell style={{marginBottom : 50}}>
+        <SimpleCell style={{position : "relative", zIndex : 0, marginBottom : 30}}>
             <InfoRow header="Ссылка ВКонтакте">
                 {loading ? <Div className={'profile_place_holder'} /> :
                 <Link href={"https://vk.com/id" + user.id}>{fetchedUser.first_name} {fetchedUser.last_name}</Link>}

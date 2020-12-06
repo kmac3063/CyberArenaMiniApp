@@ -3,50 +3,55 @@ class Constants {
     static MAX_NICKNAME_LENGTH = 25
 
     static Tabs = {
-        HOME_TOURNAMENT : "1",
-        HOME_TAVERN : "2",
-        HOME_PROFILE : "3",
+        HOME_TOURNAMENT : "HOME_TOURNAMENT",
+        HOME_TAVERN : "HOME_TAVERN",
+        HOME_PROFILE : "HOME_PROFILE",
+
+        TOURNAMENT_INFO : "TOURNAMENT_INFO",
+        TOURNAMENT_GRID : "TOURNAMENT_GRID",
+        TOURNAMENT_PARTICIPANTS : "TOURNAMENT_PARTICIPANTS",
     }
 
     static Colors = {
         Dark : {
             CONTEXT_BUTTON : "#E2E3E7",
         },
-        Grey : {
+        Gray : {
 
         },
     }
 
     static Panels = {
-        HOME: "1",
-        TOURNAMENT_INFO : "2",
+        HOME: "PANELS_HOME",
+        TOURNAMENT_INFO_HOME : "PANELS_TOURNAMENT_INFO_HOME",
     }
 
     static Modals = {
-        TOURNAMENT_CREATE_TOURNAMENT: "1",
+        TOURNAMENT_CREATE_TOURNAMENT: "MODALS_TOURNAMENT_CREATE_TOURNAMENT",
+        PROFILE_CHANGE_AVATAR: "MODALS_TOURNAMENT_CREATE_TOURNAMENT"
     }
 
     static TournamentsPreviewSize = {
-        SMALL_QUAD : "1",
-        MEDIUM : "2",
-        LARGE : "3",
-        XLARGE: "4",
+        SMALL_QUAD : "TOURNAMENTS_PREVIEW_SIZE_SMALL_QUAD",
+        MEDIUM : "TOURNAMENTS_PREVIEW_SIZE_MEDIUM",
+        LARGE : "TOURNAMENTS_PREVIEW_SIZE_LARGE",
+        XLARGE: "TOURNAMENTS_PREVIEW_SIZE_XLARGE",
     }
 
     static SelectValue = {
         TournamentGridType : {
-            SINGLE_ELIMINATION : "1"
+            SINGLE_ELIMINATION : "TOURNAMENT_GRID_TYPE_SINGLE_ELIMINATION"
         },
         TournamentPrivateType : {
-            OPEN : "1",
-            PRIVATE : "2",
+            OPEN : "TOURNAMENT_PRIVATE_TYPE_OPEN",
+            PRIVATE : "TOURNAMENT_PRIVATE_TYPE_PRIVATE",
         }
     };
 
     static RadioValue = {
         TournamentGroupType : {
-            SOLO : "1",
-            GROUP : "2",
+            SOLO : "TOURNAMENT_GROUP_TYPE_SOLO",
+            GROUP : "TOURNAMENT_GROUP_TYPE_GROUP",
         },
 
     }

@@ -13,25 +13,28 @@ import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import SimpleCell from "@vkontakte/vkui/dist/components/SimpleCell/SimpleCell";
 import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
-import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
 import Caption from "@vkontakte/vkui/dist/components/Typography/Caption/Caption";
 import "../styles.css"
 import Coliseum from "../img/coliseum.png";
 import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
 
-const Tournament = ({fetchedUser, go, tournamentSelect}) => {
+const Tournament = ({fetchedUser, go, selectTournament}) => {
     const [loading, setLoading] = useState(false)
 
-    const [myTournaments, setMyTournaments] = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.MEDIUM))
+    const [myTournaments, setMyTournaments]
+        = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.MEDIUM))
     const [myTournamentsLoading, setMyTournamentsLoading] = useState(true)
 
-    const [participateTournaments, setParticipateTournaments] = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.MEDIUM))
+    const [participateTournaments, setParticipateTournaments]
+        = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.MEDIUM))
     const [participateTournamentsLoading, setParticipateTournamentsLoading] = useState(true)
 
-    const [recommendedTournaments, setRecommendedTournaments] = useState(Data.getLoadTournaments(8, Constants.TournamentsPreviewSize.SMALL_QUAD))
+    const [recommendedTournaments, setRecommendedTournaments]
+        = useState(Data.getLoadTournaments(8, Constants.TournamentsPreviewSize.SMALL_QUAD))
     const [recommendedTournamentsLoading, setRecommendedTournamentsLoading] = useState(true)
 
-    const [highlyRecommendedTournaments, setHighlyRecommendedTournaments] = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.LARGE))
+    const [highlyRecommendedTournaments, setHighlyRecommendedTournaments]
+        = useState(Data.getLoadTournaments(4, Constants.TournamentsPreviewSize.LARGE))
     const [highlyRecommendedTournamentsLoading, setHighlyRecommendedTournamentsLoading] = useState(true)
 
     const [activeModal, setActiveModal] = useState(null)
@@ -94,11 +97,12 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
     }
 
     const outModal = (props) => {
-
+        //TO-DO сделать сохранение в кеш, чтобы при открытии окна подгружались значения
+        closeModal()
     }
 
     const createTournament = (tournament) => {
-
+        //TO-DO отправить на сервер
     }
 
     // For test
@@ -130,7 +134,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                 setTimeout(() => {
                     setSearchFilterTournaments(tournaments)
                     setSearchValueLoading(false)
-                }, 0)
+                }, 250)
             })
 
     }
@@ -156,7 +160,7 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
             <Group separator={'hide'}
                                 style={{position : "relative", zIndex : 0}}>
                 {searchValueLoading ?
-                    Data.getLoadTournaments(6, Constants.TournamentsPreviewSize.SMALL_QUAD).map((tournament) =>{
+                    Data.getLoadTournaments(3, Constants.TournamentsPreviewSize.SMALL_QUAD).map((tournament) =>{
                         return <SimpleCell key={tournament.id}
                             before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
                             description={
@@ -172,16 +176,16 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                     searchFilterTournaments.map((tournament) =>{
                         return <SimpleCell key={tournament.id}
                                 onClick={(e) => {
-                                   tournamentSelect(tournament.id)
+                                   selectTournament(tournament)
                                    go(e)
                                 }}
-                                data-to = {Constants.Panels.TOURNAMENT_INFO}
+                                data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}
                                 before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
                                 description={
                                 <React.Fragment>
                                     <Caption level="2" weight="regular" >Игра: {tournament.gameName}</Caption>
                                     <Caption level="2" weight="regular">Тип сетки: {tournament.type}</Caption>
-                                    <Caption level="2" weight="regular">Начало: {tournament.date}</Caption>
+                                    <Caption level="2" weight="regular">Начало: {tournament.dateBegin}</Caption>
                                 </React.Fragment>
                             }>{tournament.name}
                         </SimpleCell>
@@ -221,10 +225,10 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                                 return <span key={tournament.id}
                                             onClick={(e)=>{
                                                 if (!myTournamentsLoading) {
-                                                    tournamentSelect(tournament.id)
+                                                    selectTournament(tournament)
                                                     go(e)}
                                             }}
-                                            data-to = {Constants.Panels.TOURNAMENT_INFO}>
+                                            data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}>
                                     <ImageCard url={tournament.imgUrl}
                                                height={90}
                                                width={150}/>
@@ -259,10 +263,10 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                         return <span key={tournament.id}
                                      onClick={(e)=>{
                                          if (!participateTournamentsLoading) {
-                                             tournamentSelect(tournament.id)
+                                             selectTournament(tournament)
                                              go(e)}
                                      }}
-                                     data-to = {Constants.Panels.TOURNAMENT_INFO}>
+                                     data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}>
                                     <ImageCard url={tournament.imgUrl}
                                                height={60}
                                                width={90}/>
@@ -289,11 +293,11 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                         return <Div key={tournament.id}
                             onClick={(e)=>{
                                 if (!highlyRecommendedTournamentsLoading) {
-                                    tournamentSelect(tournament.id)
+                                    selectTournament(tournament)
                                     go(e)
                                 }
                             }}
-                            data-to = {Constants.Panels.TOURNAMENT_INFO}
+                            data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}
                             style={{backgroundImage : `url(${tournament.imgUrl})`,
                                 backgroundPosition: "center",
                                 backgroundRepeat: "no-repeat",
@@ -322,11 +326,11 @@ const Tournament = ({fetchedUser, go, tournamentSelect}) => {
                             <SimpleCell
                                 key={tournament.id}
                                 onClick={(e)=>{
-                                    tournamentSelect(tournament.id)
+                                    selectTournament(tournament)
                                     go(e)
                                 }}
-                                data-to = {Constants.Panels.TOURNAMENT_INFO}
-                                before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
+                                data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}
+                                before={<Avatar mode="app" src={tournament.imgUrl} style={{objectFit : "cover"}} size={72}/>}
                                 description={
                                     <React.Fragment>
                                         <Caption level="2" weight="regular">Игра: {tournament.gameName}</Caption>

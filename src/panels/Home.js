@@ -16,10 +16,11 @@ import Constants from "../Model/Constants";
 import Tournament from "../tabs/Tournament";
 import Tavern from "../tabs/Tavern";
 import Profile from "../tabs/Profile";
+import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
 
 
 
-const Home = ({ id, fetchedUser, go, tournamentSelect}) => {
+const Home = ({ id, fetchedUser, go, selectTournament}) => {
 	const [activeTab, setActiveTab] = useState(Constants.Tabs.HOME_TOURNAMENT)
 
 	const showTab = () => {
@@ -27,29 +28,36 @@ const Home = ({ id, fetchedUser, go, tournamentSelect}) => {
 			case Constants.Tabs.HOME_TOURNAMENT:
 				return <Tournament fetchedUser={fetchedUser}
 								   go={go}
-								   tournamentSelect={tournamentSelect}/>
+								   selectTournament={selectTournament}/>
 			case Constants.Tabs.HOME_TAVERN:
 				return <Tavern/>
 			case Constants.Tabs.HOME_PROFILE:
 				return <Profile fetchedUser={fetchedUser}
 								go={go}/>
 		}
+		console.log(123)
 		return null
 	}
 	return (<Panel id={id}>
 		<PanelHeader>
 			{StrManager.get(StrManager.StrEnum.APP_NAME)}
 		</PanelHeader>
-		<Tabs>
-			<TabsItem onClick={() => setActiveTab(Constants.Tabs.HOME_TOURNAMENT)}
+		<Tabs >
+			<TabsItem
+				id = {Constants.Tabs.HOME_TOURNAMENT}
+				onClick={() => setActiveTab(Constants.Tabs.HOME_TOURNAMENT)}
 					  selected={activeTab === Constants.Tabs.HOME_TOURNAMENT}>
 				{StrManager.get(StrManager.StrEnum.TOURNAMENT_TAB)}
 			</TabsItem>
-			<TabsItem onClick={() => setActiveTab(Constants.Tabs.HOME_TAVERN)}
+			<TabsItem
+				id = {Constants.Tabs.HOME_TAVERN}
+				onClick={() => setActiveTab(Constants.Tabs.HOME_TAVERN)}
 					  selected={activeTab === Constants.Tabs.HOME_TAVERN}>
 				{StrManager.get(StrManager.StrEnum.TAVERN_TAB)}
 			</TabsItem>
-			<TabsItem onClick={() => setActiveTab(Constants.Tabs.HOME_PROFILE)}
+			<TabsItem
+				id = {Constants.Tabs.HOME_PROFILE}
+				onClick={() => setActiveTab(Constants.Tabs.HOME_PROFILE)}
 					  selected={activeTab === Constants.Tabs.HOME_PROFILE}>
 				{StrManager.get(StrManager.StrEnum.PROFILE_TAB)}
 			</TabsItem>
