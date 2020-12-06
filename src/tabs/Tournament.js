@@ -18,7 +18,7 @@ import "../styles.css"
 import Coliseum from "../img/coliseum.png";
 import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
 
-const Tournament = ({fetchedUser, go, selectTournament}) => {
+const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
     const [loading, setLoading] = useState(false)
 
     const [myTournaments, setMyTournaments]
@@ -50,43 +50,36 @@ const Tournament = ({fetchedUser, go, selectTournament}) => {
 
     const loadAll = () => {
         if (myTournamentsLoading) {
-            Data.getMyTournaments(fetchedUser)
+            Data.getMyTournaments(VKUser)
                 .then(tournaments => {
-                    setTimeout(() => {
-                        setMyTournaments(tournaments)
-                    }, 0)
+                    setMyTournaments(tournaments)
                     setMyTournamentsLoading(false)
                 })
         }
 
         if (participateTournamentsLoading) {
-            Data.getParticipateTournaments(fetchedUser)
+            Data.getParticipateTournaments(VKUser)
                 .then(tournaments => {
-                    setTimeout(() => {
-                        setParticipateTournaments(tournaments)
-                    }, 0)
+                    setParticipateTournaments(tournaments)
                     setParticipateTournamentsLoading(false)
                 })
         }
 
         if (highlyRecommendedTournamentsLoading) {
-            Data.getHighlyRecommendedTournaments(fetchedUser)
+            Data.getHighlyRecommendedTournaments(VKUser)
                 .then(tournaments => {
-                    setTimeout(() => {
-                        setHighlyRecommendedTournaments(
-                            tournaments.slice(0, Math.min(Constants.NUMBER_OF_HIGHLY_REC_TOURNAMENT, tournaments.length)))
-                    }, 0)
+                    setHighlyRecommendedTournaments(tournaments
+                        .slice(0,
+                            Math.min(Constants.NUMBER_OF_HIGHLY_REC_TOURNAMENT, tournaments.length)))
                     setHighlyRecommendedTournamentsLoading(false)
                 })
         }
 
         if (recommendedTournamentsLoading) {
-            Data.getRecommendedTournaments(fetchedUser)
+            Data.getRecommendedTournaments(VKUser)
                 .then(tournaments => {
-                    setTimeout(() => {
-                        setRecommendedTournaments(tournaments)
-                        setRecommendedTournamentsLoading(false)
-                    }, 0)
+                    setRecommendedTournaments(tournaments)
+                    setRecommendedTournamentsLoading(false)
                 })
         }
 
@@ -127,14 +120,12 @@ const Tournament = ({fetchedUser, go, selectTournament}) => {
         if (!text || text.length === 0) return null
         setSearchValueLoading(true)
         text = text.trim().toLowerCase()
-        Data.getAllTournaments(fetchedUser)
+        Data.getAllTournaments(VKUser)
             .then(tournaments => {
                 tournaments = tournaments.filter((t) =>
                     t.name.toLowerCase().includes(text) || t.description.toLowerCase().includes(text))
-                setTimeout(() => {
                     setSearchFilterTournaments(tournaments)
                     setSearchValueLoading(false)
-                }, 250)
             })
 
     }
@@ -257,7 +248,7 @@ const Tournament = ({fetchedUser, go, selectTournament}) => {
                     padding: "0 16px",
                     display: "flex",
                     flexDirection: "row",
-                    justifyContent: "space-between"
+                    justifyContent: "flex-start"
                     }}>
                     {participateTournaments.map((tournament) => {
                         return <span key={tournament.id}

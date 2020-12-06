@@ -20,22 +20,25 @@ import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/Pan
 
 
 
-const Home = ({ id, fetchedUser, go, selectTournament}) => {
+const Home = ({ id, VKUser, gameUser, go, selectTournament}) => {
 	const [activeTab, setActiveTab] = useState(Constants.Tabs.HOME_TOURNAMENT)
 
 	const showTab = () => {
 		switch (activeTab) {
 			case Constants.Tabs.HOME_TOURNAMENT:
-				return <Tournament fetchedUser={fetchedUser}
+				return <Tournament VKUser={VKUser}
+				                   gameUser={gameUser}
 								   go={go}
 								   selectTournament={selectTournament}/>
 			case Constants.Tabs.HOME_TAVERN:
-				return <Tavern/>
+				return <Tavern VKUser={VKUser}
+							   gameUser={gameUser}
+							   go={go}/>
 			case Constants.Tabs.HOME_PROFILE:
-				return <Profile fetchedUser={fetchedUser}
+				return <Profile VKUser={VKUser}
+								gameUser={gameUser}
 								go={go}/>
 		}
-		console.log(123)
 		return null
 	}
 	return (<Panel id={id}>
@@ -62,7 +65,7 @@ const Home = ({ id, fetchedUser, go, selectTournament}) => {
 				{StrManager.get(StrManager.StrEnum.PROFILE_TAB)}
 			</TabsItem>
 		</Tabs>
-		{fetchedUser ? showTab() :
+		{VKUser ? showTab() :
 			<Spinner size={"large"} style={{position:"relative", marginTop:"50%"}}/>}
 	</Panel>)
 };
@@ -70,7 +73,7 @@ const Home = ({ id, fetchedUser, go, selectTournament}) => {
 Home.propTypes = {
 	id: PropTypes.string.isRequired,
 	go: PropTypes.func.isRequired,
-	fetchedUser: PropTypes.shape({
+	VKUser: PropTypes.shape({
 		photo_200: PropTypes.string,
 		first_name: PropTypes.string,
 		last_name: PropTypes.string,

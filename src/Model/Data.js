@@ -21,7 +21,11 @@ class Data {
                         t.type = "Single elimination"
                         t.dateBegin = "18.12.2000"
                         t.dateEnd = "18.12.2000"
-                        t.description = "DOTA 2 dota 2 cs go cs:go 123 igor dasha kasha"
+                        t.description = "DOTA 2 dota 2 cs go cs:go 123 Почему почему почему почему..."
+                        t.maxCommand = 16
+                        t.rule = "1. Никаких оскорблений.\n" +
+                            "2. Участники старше 16+\n" +
+                            "3. Участники из РФ"
                         return t}))
             .then(tournaments => {
                 let t1 = {}
@@ -34,7 +38,7 @@ class Data {
                 t1.dateEnd = "10.01.2021"
                 t1.maxCommand = 16
                 t1.description = "Турнир по Дота 2, организованный Игроманией совместно с Эльдорадо. Главный приз - супер широкий монитор от LG.\n" +
-                    "Подробности на сайте игромании: *тут ссылка*"
+                    "Подробности на сайте игромании:"
                 t1.rule = "1. Никаких оскорблений.\n" +
                     "2. Участники старше 16+\n" +
                     "3. Участники из РФ"
@@ -124,11 +128,11 @@ class Data {
         return games
     }
 
-    static getUser(user) {
+    static getGameUser(VKUser) {
         // запрос в бд на юзера
         // console.log(user)
-        return {avatarURL : user.photo_200,
-                id : user.id,
+        return {avatarURL : VKUser.photo_200,
+                id : VKUser.id,
                 nickname : "amazingMan777",
                 games : "Among us, DOTA 2, PUBG"
         }
@@ -146,6 +150,50 @@ class Data {
             {imgURL : a1, id : 8},
             {imgURL : a4, id : 9},
         ];
+    }
+
+    static getVkAppId() {
+        const qs = require('querystring');
+        const urlParams = qs.parse(window.location.search);
+        const ordered = {};
+        Object.keys(urlParams).sort().forEach((key) => {
+            if (key.slice(0, 3) === 'vk_') {
+                ordered[key] = urlParams[key];
+            }
+        });
+        return ordered["vk_app_id"];
+    }
+
+    static getTestUsers() {
+        return [{ id : 1,
+            imgURL : "https://sun9-72.userapi.com/impf/c851536/v851536397/f51ab/d2brwQfMOWg.jpg?size=1920x1200&quality=96&proxy=1&sign=de50e0b8bc6254845fddfbfd572194bf",
+            nickname : "killer228"},
+            { id : 2,
+                imgURL : "https://sun9-72.userapi.com/impf/c851536/v851536397/f51ab/d2brwQfMOWg.jpg?size=1920x1200&quality=96&proxy=1&sign=de50e0b8bc6254845fddfbfd572194bf",
+                nickname : "killer228"},
+            { id : 3,
+                imgURL : "https://sun9-72.userapi.com/impf/c851536/v851536397/f51ab/d2brwQfMOWg.jpg?size=1920x1200&quality=96&proxy=1&sign=de50e0b8bc6254845fddfbfd572194bf",
+                nickname : "killer228"},
+            { id : 4,
+                imgURL : "https://sun9-72.userapi.com/impf/c851536/v851536397/f51ab/d2brwQfMOWg.jpg?size=1920x1200&quality=96&proxy=1&sign=de50e0b8bc6254845fddfbfd572194bf",
+                nickname : "killer228"},
+            { id : 5,
+                imgURL : "https://sun9-72.userapi.com/impf/c851536/v851536397/f51ab/d2brwQfMOWg.jpg?size=1920x1200&quality=96&proxy=1&sign=de50e0b8bc6254845fddfbfd572194bf",
+                nickname : "killer228"},
+            { id : 6,
+                imgURL : "https://sun9-72.userapi.com/impf/c851536/v851536397/f51ab/d2brwQfMOWg.jpg?size=1920x1200&quality=96&proxy=1&sign=de50e0b8bc6254845fddfbfd572194bf",
+                nickname : "killer228"},]
+    }
+
+    static getVKUsers(gameUsers) {
+        // TO-DO делаем запрос в вк апи и получаем имена всех людей
+        return [{id : 1, first_name : "Потап", last_name : "Потапов"},
+            {id : 2, first_name : "Потап", last_name : "Потапов"},
+            {id : 3, first_name : "Потап", last_name : "Потапов"},
+            {id : 4, first_name : "Потап", last_name : "Потапов"},
+            {id : 5, first_name : "Потап", last_name : "Потапов"},
+            {id : 6, first_name : "Потап", last_name : "Потапов"},
+        ]
     }
 }
 

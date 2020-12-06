@@ -8,22 +8,25 @@ import TournamentInfo from "../tabs/TournamentInfo";
 import Grid from "../tabs/Grid";
 import Participants from "../tabs/Participants";
 
-const TournamentInfoHome = ({id, tournament, go, fetchedUser}) => {
+const TournamentInfoHome = ({id, tournament, go, VKUser, gameUser, selectParticipant}) => {
     const [activeTab, setActiveTab] = useState(Constants.Tabs.TOURNAMENT_INFO)
 
     const showTab = () => {
         switch (activeTab) {
             case Constants.Tabs.TOURNAMENT_INFO:
-                return <TournamentInfo fetchedUser={fetchedUser}
-                   go={go}
-                   tournament={tournament}/>
+                return <TournamentInfo
+                    VKUser={VKUser}
+                    gameUser={gameUser}
+                    go={go}
+                    tournament={tournament}/>
             case Constants.Tabs.TOURNAMENT_GRID:
                 return <Grid
                     tournament={tournament}/>
             case Constants.Tabs.TOURNAMENT_PARTICIPANTS:
                 return <Participants
                     tournament={tournament}
-                    fetchedUser={fetchedUser}
+                    fetchedUser={VKUser}
+                    selectParticipant={selectParticipant}
                     go={go}/>
         }
         return null
@@ -54,7 +57,7 @@ const TournamentInfoHome = ({id, tournament, go, fetchedUser}) => {
                 Участники
             </TabsItem>
         </Tabs>
-        {fetchedUser ? showTab() :
+        {VKUser ? showTab() :
             <Spinner size={"large"} style={{position:"relative", marginTop:"50%"}}/>}
     </Panel>)
 }

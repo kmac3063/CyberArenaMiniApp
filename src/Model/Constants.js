@@ -24,6 +24,7 @@ class Constants {
     static Panels = {
         HOME: "PANELS_HOME",
         TOURNAMENT_INFO_HOME : "PANELS_TOURNAMENT_INFO_HOME",
+        PARTICIPANT_PROFILE : "PANELS_PARTICIPANT_PROFILE"
     }
 
     static Modals = {
@@ -54,6 +55,12 @@ class Constants {
             GROUP : "TOURNAMENT_GROUP_TYPE_GROUP",
         },
 
+    }
+
+    static TournamentStatus = {
+        CREATOR : "CREATOR",
+        PARTICIPANT : "PARTICIPANT",
+        NOT_PARTICIPANT : "NOT_PARTICIPANT",
     }
 }
 

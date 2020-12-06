@@ -8,7 +8,7 @@ import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
-const Home = ({ id, go, fetchedUser }) => (
+const Home = ({ id, go, VKUser }) => (
 	<Panel id={id}>
 		<PanelHeader>Example</PanelHeader>
 		{fetchedUser &&
@@ -34,7 +34,7 @@ const Home = ({ id, go, fetchedUser }) => (
 Home.propTypes = {
 	id: PropTypes.string.isRequired,
 	go: PropTypes.func.isRequired,
-	fetchedUser: PropTypes.shape({
+	VKUser: PropTypes.shape({
 		photo_200: PropTypes.string,
 		first_name: PropTypes.string,
 		last_name: PropTypes.string,

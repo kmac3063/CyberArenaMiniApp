@@ -5,23 +5,22 @@ import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenS
 import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
-import Persik from './panels/Persik';
 import Constants from "./Model/Constants";
 import TournamentInfoHome from "./panels/TournamentInfoHome";
 import StrManager from "./Model/StrManager";
-import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
-import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
-import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
-import Root from "@vkontakte/vkui/dist/components/Root/Root";
+import Data from "./Model/Data";
+import ParticipantProfile from "./panels/ParticipantProfile";
 
 const App = () => {
 	//"deploy": "vk-miniapps-deploy" в scripts в package.json
 	const [activePanel, setActivePanel] = useState(Constants.Panels.HOME);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
-	const [fetchedUser, setUser] = useState(null);
-	const [selectedTournament, setSelectedTournament] = useState(null);
+	const [VKUser, setUser] = useState(null);
+	const [gameUser, setGameUser] = useState(null)
 
+	const [selectedTournament, setSelectedTournament] = useState(null);
+	const [selectedParticipant, setSelectedParticipant] = useState(null)
 
 	const schemeAttribute = document.createAttribute('scheme');
 	schemeAttribute.value = 'space_gray';
@@ -40,24 +39,15 @@ const App = () => {
 			// }
 		});
 		async function fetchData() {
-			const user = await bridge.send('VKWebAppGetUserInfo');
-			setUser(user);
+			const vkUser = await bridge.send('VKWebAppGetUserInfo');
+			setUser(vkUser);
+
+			// TO-DO Запрос на сервер
+			// const gameUser = await
+			const gameUser = Data.getGameUser(vkUser)
+			setGameUser(gameUser)
 			setPopout(null)
 		}
-		// async function setLocale() {
-		// 	let xhr = new XMLHttpRequest();
-		// 	xhr.open('GET', `https://api.vk.com/method/users.get?user_ids=${fetchedUser.id}&fields=lang&access_token=${Token.token}&v=5.126`, false);
-		// 	xhr.send();
-		//
-		// 	let locale = "default"
-		// 	if (xhr.status != 200) {
-		// 		console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-		// 	} else {
-		// 		locale = xhr.response.lang;
-		// 		console.log(locale);
-		// 	}
-		// 	StrManager.setLocale(locale);
-		// }
 
 		fetchData();
 		//setLocale();1
@@ -71,16 +61,29 @@ const App = () => {
 		setSelectedTournament(tournament)
 	}
 
+	const selectParticipants = (participant) => {
+		setSelectedParticipant(participant)
+	}
+
 	return (
 		<View activePanel={activePanel}>
 			<Home id={Constants.Panels.HOME}
-				  fetchedUser={fetchedUser}
+				  VKUser={VKUser}
+				  gameUser={gameUser}
 				  go={go}
 				  selectTournament={selectTournament}/>
 			<TournamentInfoHome id={Constants.Panels.TOURNAMENT_INFO_HOME}
-				fetchedUser={fetchedUser}
+				VKUser={VKUser}
+				gameUser={gameUser}
 				go={go}
-				tournament={selectedTournament}/>
+				tournament={selectedTournament}
+				selectParticipant={selectParticipants}/>
+			<ParticipantProfile id={Constants.Panels.PARTICIPANT_PROFILE}
+								go={go}
+								participant={selectedParticipant}
+								fetchedUser={VKUser}
+								tournament={selectedTournament}
+			/>
 		</View>
 	);
 }
