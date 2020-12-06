@@ -14,6 +14,7 @@ import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
 import Headline from "@vkontakte/vkui/dist/components/Typography/Headline/Headline";
 import ChangeAvatar from "../modals/ChangeAvatar";
 import ChangeNicknameAlert from "../alerts/ChangeNicknameAlert";
+import StrManager from "../Model/StrManager";
 
 const Profile = ({VKUser, gameUser}) => {
     const [loading, setLoading] = useState(true)
@@ -71,7 +72,7 @@ const Profile = ({VKUser, gameUser}) => {
 
         <Group style={{position : "relative", zIndex : 0}}>
             <SimpleCell onClick={() => setActiveModal(Constants.Modals.PROFILE_CHANGE_AVATAR)}>
-                <InfoRow header="Аватар">
+                <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_AVATAR)}>
                     <Avatar size={84} src={loading ? defaultAvatar : gameUser.avatarURL}
                             style={{marginTop:10, objectFit: "cover"}}/>
                 </InfoRow>
@@ -79,7 +80,7 @@ const Profile = ({VKUser, gameUser}) => {
         </Group>
         <Group style={{position : "relative", zIndex : 0}}>
             <SimpleCell multiline>
-                <InfoRow header="Никнейм" onClick={() => {
+                <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_NICKNAME)} onClick={() => {
                     setPopout(true)
                 }}>
                     {loading ? <Div className={'profile_place_holder'}/>
@@ -89,7 +90,7 @@ const Profile = ({VKUser, gameUser}) => {
 
             {loading || VKUser.city && VKUser.city.title ?
                 <SimpleCell>
-                    <InfoRow header="Город">
+                    <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_CITY)}>
                         {loading ? <Div className={'profile_place_holder'}/> : VKUser.city.title}
                     </InfoRow>
                 </SimpleCell> : null
@@ -97,14 +98,14 @@ const Profile = ({VKUser, gameUser}) => {
 
             {loading || VKUser.bdate && VKUser.bdate.length ?
                 <SimpleCell>
-                    <InfoRow header="Дата рождения">
+                    <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_DATE_OF_BIRTH)}>
                         {loading ? <Div className={'profile_place_holder'}/> : VKUser.bdate}
                     </InfoRow>
                 </SimpleCell> : null
             }
 
             <SimpleCell>
-                <InfoRow header="Игры">
+                <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_GAMES)}>
                     <Textarea
                         value = {gameUser.games}
                         onChange={(e) => {
@@ -117,7 +118,7 @@ const Profile = ({VKUser, gameUser}) => {
         </Group>
 
         <SimpleCell style={{position : "relative", zIndex : 0, marginBottom : 30}}>
-            <InfoRow header="Ссылка ВКонтакте">
+            <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_VK_LINK)}>
                 {loading ? <Div className={'profile_place_holder'} /> :
                 <Link href={"https://vk.com/id" + VKUser.id}>{VKUser.first_name} {VKUser.last_name}</Link>}
             </InfoRow>

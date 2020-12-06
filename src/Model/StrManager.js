@@ -1,9 +1,21 @@
 class StrManager {
     static StrEnum = {
         APP_NAME : 1,
+
         TOURNAMENT_TAB: 2,
         TAVERN_TAB: 3,
         PROFILE_TAB: 4,
+
+        PROFILE_AVATAR: 10,
+        PROFILE_DATE_OF_BIRTH: 11,
+        PROFILE_NICKNAME: 12,
+        PROFILE_INFO: 13,
+        PROFILE_GAMES: 14,
+        PROFILE_VK_LINK: 15,
+        PROFILE_CITY: 16,
+
+
+
     }
 
     static localeWords
@@ -14,6 +26,14 @@ class StrManager {
             [this.StrEnum.TOURNAMENT_TAB, "Турниры"],
             [this.StrEnum.TAVERN_TAB, "Таверна"],
             [this.StrEnum.PROFILE_TAB, "Профиль"],
+            [this.StrEnum.PROFILE_AVATAR, "Аватар"],
+            [this.StrEnum.PROFILE_DATE_OF_BIRTH, "Дата рождения"],
+            [this.StrEnum.PROFILE_NICKNAME, "Никнейм"],
+            [this.StrEnum.PROFILE_INFO, "Информация о пользователе"],
+            [this.StrEnum.PROFILE_GAMES, "Игры"],
+            [this.StrEnum.PROFILE_VK_LINK, "Ссылка Вконтакте"],
+            [this.StrEnum.PROFILE_CITY, "Город"],
+
         ])
 
         let en = {}
