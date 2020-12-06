@@ -8,6 +8,7 @@ import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import Constants from "../Model/Constants";
 import Icon24WriteOutline from '@vkontakte/icons/dist/24/write_outline';
+import StrManager from "../Model/StrManager";
 
 const TournamentInfo = ({VKUser, gameUser, go, tournament}) => {
     const getStatus = () => {
@@ -36,39 +37,39 @@ const TournamentInfo = ({VKUser, gameUser, go, tournament}) => {
         </Div>
         <Separator/>
         <Group>
-            <Header mode="secondary">Информация о турнире</Header>
+            <Header mode="secondary">{StrManager.get(StrManager.StrEnum.TOURNAMENT_INFO_HEADER)}</Header>
             <SimpleCell multiline>
-                <InfoRow header="Описание">
+                <InfoRow header={StrManager.get(StrManager.StrEnum.TOURNAMENT_DESCRIPTION)}>
                     {tournament.description}
                 </InfoRow>
             </SimpleCell>
 
             <SimpleCell multiline>
-                <InfoRow header="Максимальное количество участников">
+                <InfoRow header={StrManager.get(StrManager.StrEnum.TOURNAMENT_MAX_PARTICIPANTS)}>
                     {tournament.maxCommand}
                 </InfoRow>
             </SimpleCell>
 
             <SimpleCell multiline>
-                <InfoRow header="Дата начала">
+                <InfoRow header={StrManager.get(StrManager.StrEnum.TOURNAMENT_START_DATE)}>
                     {tournament.dateBegin}
                 </InfoRow>
             </SimpleCell>
 
             <SimpleCell multiline>
-                <InfoRow header="Дата окончания">
+                <InfoRow header={StrManager.get(StrManager.StrEnum.TOURNAMENT_END_DATE)}>
                     {tournament.dateEnd}
                 </InfoRow>
             </SimpleCell>
 
             <SimpleCell multiline>
-                <InfoRow header="Правила">
+                <InfoRow header={StrManager.get(StrManager.StrEnum.TOURNAMENT_RULES)}>
                     {tournament.rule}
                 </InfoRow>
             </SimpleCell>
 
             <SimpleCell multiline>
-                <InfoRow header="Организатор">
+                <InfoRow header={StrManager.get(StrManager.StrEnum.TOURNAMENT_ORGANIZER)}>
                     {/*TO-DO Сделать запрос и узнать организатора*/}
                     Александр Шпыра
                 </InfoRow>
@@ -77,17 +78,17 @@ const TournamentInfo = ({VKUser, gameUser, go, tournament}) => {
         {
             // status === Constants.TournamentStatus.NOT_PARTICIPANT &&
             <Div>
-                <Button size="xl" mode="commerce">Принять участие</Button>
+                <Button size="xl" mode="commerce">{StrManager.get(StrManager.StrEnum.TOURNAMENT_TAKE_PART)}</Button>
             </Div>}
         {
             // status === Constants.TournamentStatus.PARTICIPANT &&
             <Div>
-                <Button size="xl" mode="destructive">Отказаться от участия</Button>
+                <Button size="xl" mode="destructive">{StrManager.get(StrManager.StrEnum.TOURNAMENT_DECLINE)}</Button>
             </Div>}
         {
             // status === Constants.TournamentStatus.CREATOR &&
             <Div>
-                <Button size="xl" mode="secondary" before={<Icon24WriteOutline/>}>Изменить</Button>
+                <Button size="xl" mode="secondary" before={<Icon24WriteOutline/>}>{StrManager.get(StrManager.StrEnum.TOURNAMENT_EDIT)}</Button>
             </Div>}
     </Group>;
 }

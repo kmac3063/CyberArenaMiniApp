@@ -17,6 +17,7 @@ import Caption from "@vkontakte/vkui/dist/components/Typography/Caption/Caption"
 import "../styles.css"
 import Coliseum from "../img/coliseum.png";
 import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
+import StrManager from "../Model/StrManager";
 
 const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
     const [loading, setLoading] = useState(false)
@@ -174,15 +175,15 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                                 before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
                                 description={
                                 <React.Fragment>
-                                    <Caption level="2" weight="regular" >Игра: {tournament.gameName}</Caption>
-                                    <Caption level="2" weight="regular">Тип сетки: {tournament.type}</Caption>
-                                    <Caption level="2" weight="regular">Начало: {tournament.dateBegin}</Caption>
+                                    <Caption level="2" weight="regular" >{StrManager.get(StrManager.StrEnum.TOURNAMENTS_GAME_NAME)}{tournament.gameName}</Caption>
+                                    <Caption level="2" weight="regular">{StrManager.get(StrManager.StrEnum.TOURNAMENTS_GRID_TYPE)}{tournament.type}</Caption>
+                                    <Caption level="2" weight="regular">{StrManager.get(StrManager.StrEnum.TOURNAMENTS_START_TIME)}{tournament.dateBegin}</Caption>
                                 </React.Fragment>
                             }>{tournament.name}
                         </SimpleCell>
                     }) : <Placeholder
                             icon={<img src={Coliseum} height={"50%"} width={"50%"}/>}
-                            header="Ничего не найдено"
+                            header={StrManager.get(StrManager.StrEnum.NOTHING_HAS_FOUND)}
                         />}
             </Group>
         : <React.Fragment>
@@ -202,7 +203,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                                onClick={() => setActiveModal(Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT)}
                     />
                 }>
-                    <Title level="3" weight="regular"> Мои турниры</Title>
+                    <Title level="3" weight="regular">{StrManager.get(StrManager.StrEnum.TOURNAMENTS_CREATED_HEADER)}</Title>
                 </Header>}>
 
                 {(myTournamentsLoading || myTournaments.length) ?
@@ -239,7 +240,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
             <Group separator={'hide'}
                    style={{position : "relative", zIndex : 0}}
                    header={<Header>
-                <Title level="3" weight="regular">Турниры, в которых я участвую</Title>
+                <Title level="3" weight="regular">{StrManager.get(StrManager.StrEnum.TOURNAMENTS_TAKING_PART_HEADER)}</Title>
             </Header>}>
                 <Div style={{
                     marginTop: 0,
@@ -271,7 +272,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
             <Group
                 separator={'hide'}
                 header={<Header>
-                    <Title level="3" weight="regular">Рекомендуемые турниры</Title>
+                    <Title level="3" weight="regular">{StrManager.get(StrManager.StrEnum.TOURNAMENTS_RECOMMENDED_HEADER)}</Title>
                     </Header>}
             style={{marginBottom: 30, position : "relative", zIndex : 0}}>
                 <Gallery

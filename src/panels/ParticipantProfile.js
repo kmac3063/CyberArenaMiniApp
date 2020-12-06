@@ -17,6 +17,7 @@ import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/Pan
 import "../styles.css"
 import bridge from "@vkontakte/vk-bridge";
 import Data from "../Model/Data";
+import StrManager from "../Model/StrManager";
 
 const ParticipantProfile = ({id, go, tournament, participant, fetchedUser}) => {
     const [loading, setLoading] = useState(true)
@@ -57,11 +58,11 @@ const ParticipantProfile = ({id, go, tournament, participant, fetchedUser}) => {
         </PanelHeader>
 
         <Group>
-            <Header mode="secondary">Информация о пользователе</Header>
+            <Header mode="secondary">{StrManager.get(StrManager.StrEnum.PROFILE_INFO)}</Header>
 
             <Group>
                 <SimpleCell>
-                    <InfoRow header="Аватар">
+                    <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_AVATAR)}>
                         <Avatar size={84} src={loading ? defaultAvatar : participant.imgURL}
                                 style={{marginTop:10, objectFit: "cover"}}/>
                     </InfoRow>
@@ -69,7 +70,7 @@ const ParticipantProfile = ({id, go, tournament, participant, fetchedUser}) => {
             </Group>
             <Group>
                 <SimpleCell multiline>
-                    <InfoRow header="Никнейм">
+                    <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_NICKNAME)}>
                         {loading ? <Div className={'profile_place_holder'}/>
                             : participant.nickname}
                     </InfoRow>
@@ -77,7 +78,7 @@ const ParticipantProfile = ({id, go, tournament, participant, fetchedUser}) => {
 
                 {loading || VKParticipant.city && VKParticipant.city.title ?
                     <SimpleCell>
-                        <InfoRow header="Город">
+                        <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_CITY)}>
                             {loading ? <Div className={'profile_place_holder'}/> : VKParticipant.city.title}
                         </InfoRow>
                     </SimpleCell> : null
@@ -85,14 +86,14 @@ const ParticipantProfile = ({id, go, tournament, participant, fetchedUser}) => {
 
                 {loading || VKParticipant.bdate && VKParticipant.bdate.length ?
                     <SimpleCell>
-                        <InfoRow header="Дата рождения">
+                        <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_DATE_OF_BIRTH)}>
                             {loading ? <Div className={'profile_place_holder'}/> : VKParticipant.bdate}
                         </InfoRow>
                     </SimpleCell> : null
                 }
 
                 <SimpleCell>
-                    <InfoRow header="Игры">
+                    <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_GAMES)}>
                         <Textarea readOnly
                             value = {participant.games}/>
                     </InfoRow>
@@ -100,7 +101,7 @@ const ParticipantProfile = ({id, go, tournament, participant, fetchedUser}) => {
             </Group>
 
             <SimpleCell style={{position : "relative", zIndex : 0, marginBottom : 30}}>
-                <InfoRow header="Ссылка ВКонтакте">
+                <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_VK_LINK)}>
                     {loading ? <Div className={'profile_place_holder'} /> :
                         <Link href={"https://vk.com/id" + VKParticipant.id}>
                             {VKParticipant.first_name} {VKParticipant.last_name}</Link>}
