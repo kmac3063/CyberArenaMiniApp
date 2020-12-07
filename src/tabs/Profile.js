@@ -7,11 +7,7 @@ import defaultAvatar from "../img/120x120_default_аvatar.png"
 import Header from "@vkontakte/vkui/dist/components/Header/Header";
 import Link from "@vkontakte/vkui/dist/components/Link/Link";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
-import View from "@vkontakte/vkui/dist/components/View/View";
-import FormLayoutGroup from "@vkontakte/vkui/dist/components/FormLayoutGroup/FormLayoutGroup";
 import Constants from "../Model/Constants";
-import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
-import Headline from "@vkontakte/vkui/dist/components/Typography/Headline/Headline";
 import ChangeAvatar from "../modals/ChangeAvatar";
 import ChangeNickname from "../alerts/ChangeNickname";
 import StrManager from "../Model/StrManager";

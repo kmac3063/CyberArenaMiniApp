@@ -1,7 +1,5 @@
-import ChangeNickname from "../alerts/ChangeNickname";
 import Group from "@vkontakte/vkui/dist/components/Group/Group";
 import {ModalRoot, Panel, SimpleCell, Textarea} from "@vkontakte/vkui";
-import ChangeAvatar from "../modals/ChangeAvatar";
 import Constants from "../Model/Constants";
 import Header from "@vkontakte/vkui/dist/components/Header/Header";
 import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
@@ -9,13 +7,10 @@ import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 import defaultAvatar from "../img/120x120_default_аvatar.png";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import Link from "@vkontakte/vkui/dist/components/Link/Link";
-import View from "@vkontakte/vkui/dist/components/View/View";
 import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
 import React, {useEffect, useState} from "react";
-import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
 import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
 import "../styles.css"
-import bridge from "@vkontakte/vk-bridge";
 import Data from "../Model/Data";
 import StrManager from "../Model/StrManager";
 

@@ -10,7 +10,6 @@ import Constants from "../Model/Constants";
 import Icon24WriteOutline from '@vkontakte/icons/dist/24/write_outline';
 import StrManager from "../Model/StrManager";
 import DeclinePartition from "../alerts/DeclinePartition";
-import CreateTournament from "../modals/CreateTournament";
 import ModalRoot from "@vkontakte/vkui/dist/components/ModalRoot/ModalRoot";
 import EditTournament from "../modals/EditTournament";
 import Data from "../Model/Data";

@@ -9,9 +9,6 @@ import a3 from '../img/avatars/3.png'
 import a4 from '../img/avatars/4.png'
 import a5 from '../img/avatars/5.png'
 import a6 from '../img/avatars/6.png'
-import bridge from "@vkontakte/vk-bridge";
-
-import Helper from "./Helper";
 
 class Data {
     // TOURNAMENTS
