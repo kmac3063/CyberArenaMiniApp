@@ -2,12 +2,13 @@ import Gamepad from "../img/gamepad.png";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import Banner from "@vkontakte/vkui/dist/components/Banner/Banner";
 import React from "react";
+import StrManager from "../Model/StrManager";
 
 const TournamentBanner = ({buttonPressed}) => {
     return <Banner
         mode="image"
-        header="Вы ещё не создали ни одного турнира"
-        subheader="Хотите создать?"
+        header={StrManager.get(StrManager.StrEnum.BANNER_CREATE_YOUR_EMPTY)}
+        subheader={StrManager.get(StrManager.StrEnum.BANNER_CREATE_QUESTION)}
         background={
             <div
                 style={{
@@ -29,7 +30,9 @@ const TournamentBanner = ({buttonPressed}) => {
                 />
             </div>
         }
-        actions={<Button mode="overlay_primary" onClick={buttonPressed}>Создать</Button>}
+        actions={<Button mode="overlay_primary" onClick={buttonPressed}>
+            {StrManager.get(StrManager.StrEnum.BANNER_CREATE_TITLE)}
+        </Button>}
     />
 }
 

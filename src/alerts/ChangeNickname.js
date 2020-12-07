@@ -3,6 +3,7 @@ import FormLayoutGroup from "@vkontakte/vkui/dist/components/FormLayoutGroup/For
 import {Input} from "@vkontakte/vkui";
 import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
 import React, {useEffect, useState} from "react";
+import StrManager from "../Model/StrManager";
 
 const ChangeNickname = ({setPopout, saveNickname, gameUser}) => {
     const [inputValue, setInputValue] = useState(gameUser.nickname)
@@ -17,11 +18,11 @@ const ChangeNickname = ({setPopout, saveNickname, gameUser}) => {
 
     return <Alert
         actions={[{
-            title: 'Отмена',
+            title: StrManager.get(StrManager.StrEnum.ALERT_CANCEL),
             mode: 'cancel',
             autoclose: true
         }, {
-            title: 'Сохранить',
+            title: StrManager.get(StrManager.StrEnum.ALERT_SAVE),
             action: () => {
                 setNeedClose(true)
             },
@@ -30,7 +31,7 @@ const ChangeNickname = ({setPopout, saveNickname, gameUser}) => {
             setPopout(null)
         }}
         style={{padding : 0}}>
-        <Headline weight="semibold" style={{ marginBottom: 16 }}>Введите новый никнейм</Headline>
+        <Headline weight="semibold" style={{ marginBottom: 16 }}>{StrManager.get(StrManager.StrEnum.ALERT_INPUT_NEW_NICKNAME)}</Headline>
         <FormLayoutGroup>
             <Input type={"text"} value={inputValue}
                    onChange={(e) => {

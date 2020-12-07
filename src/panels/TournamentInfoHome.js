@@ -7,6 +7,7 @@ import {Spinner, Tabs, TabsItem} from "@vkontakte/vkui";
 import TournamentInfo from "../tabs/TournamentInfo";
 import Grid from "../tabs/Grid";
 import Participants from "../tabs/Participants";
+import StrManager from "../Model/StrManager";
 
 const TournamentInfoHome = ({id, tournament, go, VKUser,
                             gameUser, selectParticipant, setPopout,
@@ -40,7 +41,7 @@ const TournamentInfoHome = ({id, tournament, go, VKUser,
     
     return (<Panel id={id}>
         <PanelHeader left={<PanelHeaderBack onClick={go} data-to={Constants.Panels.HOME}/>}>
-            Информация о турнире
+            {StrManager.get(StrManager.StrEnum.TOURNAMENT_INFO_HOME_HEADER)}
         </PanelHeader>
         <Tabs>
             <TabsItem
@@ -48,18 +49,18 @@ const TournamentInfoHome = ({id, tournament, go, VKUser,
                 onClick={() => {
                     setActiveTab(Constants.Tabs.TOURNAMENT_INFO)}}
                       selected={activeTab === Constants.Tabs.TOURNAMENT_INFO}>
-                Информация
+                {StrManager.get(StrManager.StrEnum.TOURNAMENT_INFO_TAB_INFO)}
             </TabsItem>
             <TabsItem
                 id = {Constants.Tabs.TOURNAMENT_GRID}
                 onClick={() => setActiveTab(Constants.Tabs.TOURNAMENT_GRID)}
                       selected={activeTab === Constants.Tabs.TOURNAMENT_GRID}>
-               Сетка
+                {StrManager.get(StrManager.StrEnum.TOURNAMENT_INFO_TAB_GRID)}
             </TabsItem>
             <TabsItem id = {Constants.Tabs.TOURNAMENT_PARTICIPANTS}
                 onClick={() => setActiveTab(Constants.Tabs.TOURNAMENT_PARTICIPANTS)}
                       selected={activeTab === Constants.Tabs.TOURNAMENT_PARTICIPANTS}>
-                Участники
+                {StrManager.get(StrManager.StrEnum.TOURNAMENT_INFO_TAB_PARTICIPANTS)}
             </TabsItem>
         </Tabs>
         {VKUser ? showTab() :

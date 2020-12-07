@@ -25,7 +25,7 @@ const Grid = ({gameUser, tournament, go}) => {
                 <Button size="xl" mode="commerce"
                         onClick={go}
                         data-to={Constants.Panels.GRID_CREATOR}>
-                    Создать турнирную сетку
+                    {StrManager.get(StrManager.StrEnum.CREATE_GRID_BUTTON_TITLE)}
                 </Button>
             </Div>
             : <Placeholder

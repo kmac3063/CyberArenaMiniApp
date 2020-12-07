@@ -155,7 +155,8 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                 {searchValueLoading ?
                     Data.getLoadTournaments(3, Constants.TournamentsPreviewSize.SMALL_QUAD).map((tournament) =>{
                         return <SimpleCell key={tournament.id}
-                            before={<Avatar mode="app" src={tournament.imgURL} size={72}/>}
+                            before={<Avatar mode="app" src={tournament.imgURL} size={72}
+                                />}
                             description={
                                 <React.Fragment>
                                     <Caption><Div className={'recommend_place_holder_descr'} style={{marginTop : 6}}/></Caption>
@@ -173,7 +174,8 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                                    go(e)
                                 }}
                                 data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}
-                                before={<Avatar mode="app" src={tournament.imgURL} size={72}/>}
+                                before={<Avatar mode="app" src={tournament.imgURL} size={72}
+                                                style={{objectFit : "cover"}}/>}
                                 description={
                                 <React.Fragment>
                                     <Caption level="2" weight="regular" >

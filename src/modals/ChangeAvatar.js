@@ -6,6 +6,7 @@ import ModalPageHeader from "@vkontakte/vkui/dist/components/ModalPageHeader/Mod
 import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
 import Icon24Cancel from "@vkontakte/icons/dist/24/cancel";
 import Icon24Done from "@vkontakte/icons/dist/24/done";
+import StrManager from "../Model/StrManager";
 
 const osName = platform();
 
@@ -29,9 +30,10 @@ const ChangeAvatar = ({id, changeAvatar, onClose}) => {
     return <ModalPage id={id} header={
         <ModalPageHeader
             left={osName === ANDROID && <PanelHeaderButton onClick={onClose}><Icon24Cancel /></PanelHeaderButton>}
-            right={<PanelHeaderButton onClick={onClose}>{osName === IOS ? 'Готово' : <Icon24Done />}</PanelHeaderButton>}
+            right={<PanelHeaderButton onClick={onClose}>{osName === IOS ?
+                StrManager.get(StrManager.StrEnum.MODAL_SELECT_AVATAR_OK) : <Icon24Done />}</PanelHeaderButton>}
         >
-            Выберите аватар
+            {StrManager.get(StrManager.StrEnum.MODAL_SELECT_AVATAR)}
         </ModalPageHeader>}>
             <Div style={{minHeight : 400}}>
                 {b.map(row => {
