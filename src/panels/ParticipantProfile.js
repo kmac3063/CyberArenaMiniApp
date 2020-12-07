@@ -1,4 +1,4 @@
-import ChangeNicknameAlert from "../alerts/ChangeNicknameAlert";
+import ChangeNickname from "../alerts/ChangeNickname";
 import Group from "@vkontakte/vkui/dist/components/Group/Group";
 import {ModalRoot, Panel, SimpleCell, Textarea} from "@vkontakte/vkui";
 import ChangeAvatar from "../modals/ChangeAvatar";
@@ -26,21 +26,12 @@ const ParticipantProfile = ({id, go, tournament, participant, fetchedUser}) => {
     useEffect(() => {
         // fetch
         async function fetchData() {
-            const tokenObj = await bridge.send("VKWebAppGetAuthToken",
-                {app_id : parseInt(Data.getVkAppId()) , "scope": ""});
-            const token = tokenObj.access_token
+            participant.id = fetchedUser.id
 
-            console.log("access_token : " + token)
+            const vkUsers = await Data.getVKUsers([participant])
+            const vkUser = vkUsers[0]
 
-            const vkUser = await bridge.send("VKWebAppCallAPIMethod",
-                {"method": "users.get", "request_id": "32test",
-                    "params": {user_ids: fetchedUser.id, fields: "bdate,city", "v":"5.126", "access_token":token}})
-            console.log("vkUser : " + vkUser)
-
-            if (vkUser && vkUser.first_name)
-                setVKParticipant(vkUser);
-            else
-                setVKParticipant(fetchedUser)
+            setVKParticipant(vkUser);
             setLoading(false)
         }
 
@@ -52,7 +43,9 @@ const ParticipantProfile = ({id, go, tournament, participant, fetchedUser}) => {
 
     return <Panel id={id}>
         <PanelHeader
-            left={<PanelHeaderBack onClick={go} data-to={Constants.Panels.TOURNAMENT_INFO_HOME}/>}
+            left={<PanelHeaderBack onClick={go}
+                                   data-to={Constants.Panels.TOURNAMENT_INFO_HOME}
+                                   data-tab={Constants.Tabs.TOURNAMENT_PARTICIPANTS}/>}
             separator={false}>
             {tournament.name}
         </PanelHeader>
@@ -94,7 +87,7 @@ const ParticipantProfile = ({id, go, tournament, participant, fetchedUser}) => {
 
                 <SimpleCell>
                     <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_GAMES)}>
-                        <Textarea readOnly
+                        <Textarea disabled
                             value = {participant.games}/>
                     </InfoRow>
                 </SimpleCell>

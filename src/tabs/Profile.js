@@ -13,19 +13,15 @@ import Constants from "../Model/Constants";
 import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
 import Headline from "@vkontakte/vkui/dist/components/Typography/Headline/Headline";
 import ChangeAvatar from "../modals/ChangeAvatar";
-import ChangeNicknameAlert from "../alerts/ChangeNicknameAlert";
+import ChangeNickname from "../alerts/ChangeNickname";
 import StrManager from "../Model/StrManager";
 
-const Profile = ({VKUser, gameUser}) => {
+const Profile = ({VKUser, gameUser, setPopout}) => {
     const [loading, setLoading] = useState(true)
-
-    const [popout, setPopout] = useState(null)
     const [activeModal, setActiveModal] = useState(null)
 
     const [gamesDescription, setGamesDescription] = useState(gameUser.games)
     const [needNewGamesDescription, setNeedNewGamesDescription] = useState(false)
-
-    // const [newAvatar, setNewAvatar] = useState(null)
 
     useEffect(() => {
         setLoading(false)
@@ -58,20 +54,17 @@ const Profile = ({VKUser, gameUser}) => {
         // TO-DO отправить на сервер
     }
 
-    return (<View
-            popout={popout ? <ChangeNicknameAlert gameUser={gameUser}
-                                  saveNickname={setNewNickname}
-                                  setPopout={setPopout}/> : null}>
+    return (
         <Group>
         <ModalRoot activeModal={activeModal}>
-            <ChangeAvatar id={Constants.Modals.PROFILE_CHANGE_AVATAR}
+            <ChangeAvatar id={Constants.Modals.CHANGE_AVATAR}
                         changeAvatar={setNewAvatar}
                         onClose={() => setActiveModal(null)}/>
         </ModalRoot>
-        <Header mode="secondary">Информация о пользователе</Header>
+        <Header mode="secondary">{StrManager.get(StrManager.StrEnum.PROFILE_INFO)}</Header>
 
         <Group style={{position : "relative", zIndex : 0}}>
-            <SimpleCell onClick={() => setActiveModal(Constants.Modals.PROFILE_CHANGE_AVATAR)}>
+            <SimpleCell onClick={() => setActiveModal(Constants.Modals.CHANGE_AVATAR)}>
                 <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_AVATAR)}>
                     <Avatar size={84} src={loading ? defaultAvatar : gameUser.avatarURL}
                             style={{marginTop:10, objectFit: "cover"}}/>
@@ -81,7 +74,9 @@ const Profile = ({VKUser, gameUser}) => {
         <Group style={{position : "relative", zIndex : 0}}>
             <SimpleCell multiline>
                 <InfoRow header={StrManager.get(StrManager.StrEnum.PROFILE_NICKNAME)} onClick={() => {
-                    setPopout(true)
+                    setPopout(<ChangeNickname gameUser={gameUser}
+                                              saveNickname={setNewNickname}
+                                              setPopout={setPopout}/>)
                 }}>
                     {loading ? <Div className={'profile_place_holder'}/>
                         : gameUser.nickname}
@@ -123,8 +118,7 @@ const Profile = ({VKUser, gameUser}) => {
                 <Link href={"https://vk.com/id" + VKUser.id}>{VKUser.first_name} {VKUser.last_name}</Link>}
             </InfoRow>
         </SimpleCell>
-    </Group>
-    </View>)
+    </Group>)
 }
 
 export default Profile;

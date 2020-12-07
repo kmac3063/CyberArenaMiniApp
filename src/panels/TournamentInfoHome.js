@@ -8,8 +8,10 @@ import TournamentInfo from "../tabs/TournamentInfo";
 import Grid from "../tabs/Grid";
 import Participants from "../tabs/Participants";
 
-const TournamentInfoHome = ({id, tournament, go, VKUser, gameUser, selectParticipant}) => {
-    const [activeTab, setActiveTab] = useState(Constants.Tabs.TOURNAMENT_INFO)
+const TournamentInfoHome = ({id, tournament, go, VKUser,
+                            gameUser, selectParticipant, setPopout,
+                            startTab}) => {
+    const [activeTab, setActiveTab] = useState(startTab ? startTab : Constants.Tabs.TOURNAMENT_INFO)
 
     const showTab = () => {
         switch (activeTab) {
@@ -18,9 +20,12 @@ const TournamentInfoHome = ({id, tournament, go, VKUser, gameUser, selectPartici
                     VKUser={VKUser}
                     gameUser={gameUser}
                     go={go}
-                    tournament={tournament}/>
+                    tournament={tournament}
+                    setPopout={setPopout}/>
             case Constants.Tabs.TOURNAMENT_GRID:
                 return <Grid
+                    go={go}
+                    gameUser={gameUser}
                     tournament={tournament}/>
             case Constants.Tabs.TOURNAMENT_PARTICIPANTS:
                 return <Participants

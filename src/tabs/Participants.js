@@ -13,15 +13,25 @@ const Participants = ({tournament, selectParticipant, go}) => {
     const [VKUsers, setVKUsers] = useState()
 
     useEffect(() => {
-        //TO-DO получаем всех людей из турнира
-        setUsers(Data.getTestUsers())
-        setVKUsers(Data.getVKUsers(users))
+        //TODO получаем всех людей из турнира
 
-        setLoading(false)
+        async function fetchData() {
+            const tempUsers = await Data.getTestUsers() // TODO Получаем с сервера людей по турниру
+            const vkUsers = await Data.getVKUsers(tempUsers)
+
+            setUsers(tempUsers)
+            setVKUsers(vkUsers);
+
+            setLoading(false)
+        }
+
+        fetchData();
+
+
     }, [])
 
     const getFullName = (id) => {
-        if (!VKUsers) return "Иван Иванов"
+        if (!VKUsers || !VKUsers.length) return "Иван Иванов"
         let user = VKUsers.find((u) => u.id === id)
         return user ? `${user.first_name} ${user.last_name}` : "Иван Иванов"
     }

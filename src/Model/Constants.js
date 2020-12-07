@@ -24,12 +24,14 @@ class Constants {
     static Panels = {
         HOME: "PANELS_HOME",
         TOURNAMENT_INFO_HOME : "PANELS_TOURNAMENT_INFO_HOME",
-        PARTICIPANT_PROFILE : "PANELS_PARTICIPANT_PROFILE"
+        PARTICIPANT_PROFILE : "PANELS_PARTICIPANT_PROFILE",
+        GRID_CREATOR : "GRID_CREATOR"
     }
 
     static Modals = {
-        TOURNAMENT_CREATE_TOURNAMENT: "MODALS_TOURNAMENT_CREATE_TOURNAMENT",
-        PROFILE_CHANGE_AVATAR: "MODALS_TOURNAMENT_CREATE_TOURNAMENT"
+        CREATE_TOURNAMENT: "MODALS_CREATE_TOURNAMENT",
+        EDIT_TOURNAMENT: "MODALS_EDIT_TOURNAMENT",
+        CHANGE_AVATAR: "MODALS_CHANGE_AVATAR"
     }
 
     static TournamentsPreviewSize = {
@@ -39,28 +41,26 @@ class Constants {
         XLARGE: "TOURNAMENTS_PREVIEW_SIZE_XLARGE",
     }
 
-    static SelectValue = {
-        TournamentGridType : {
-            SINGLE_ELIMINATION : "TOURNAMENT_GRID_TYPE_SINGLE_ELIMINATION"
+
+    static TournamentParams = {
+        GridType : {
+            SINGLE_ELIMINATION : "GRID_TYPE_SINGLE_ELIMINATION"
         },
-        TournamentPrivateType : {
-            OPEN : "TOURNAMENT_PRIVATE_TYPE_OPEN",
-            PRIVATE : "TOURNAMENT_PRIVATE_TYPE_PRIVATE",
-        }
+        PrivateType : {
+            OPEN : "PRIVATE_TYPE_OPEN",
+            PRIVATE : "PRIVATE_TYPE_PRIVATE",
+        },
+        GroupType : {
+            SOLO : "GROUP_TYPE_SOLO",
+            GROUP : "GROUP_TYPE_GROUP",
+        },
     };
 
-    static RadioValue = {
-        TournamentGroupType : {
-            SOLO : "TOURNAMENT_GROUP_TYPE_SOLO",
-            GROUP : "TOURNAMENT_GROUP_TYPE_GROUP",
-        },
-
-    }
-
-    static TournamentStatus = {
+    static UserStatus = {
         CREATOR : "CREATOR",
         PARTICIPANT : "PARTICIPANT",
         NOT_PARTICIPANT : "NOT_PARTICIPANT",
+        ANYONE : "ANYONE"
     }
 }
 

@@ -20,7 +20,7 @@ import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/Pan
 
 
 
-const Home = ({ id, VKUser, gameUser, go, selectTournament}) => {
+const Home = ({ id, VKUser, gameUser, go, selectTournament, setPopout}) => {
 	const [activeTab, setActiveTab] = useState(Constants.Tabs.HOME_TOURNAMENT)
 
 	const showTab = () => {
@@ -37,7 +37,8 @@ const Home = ({ id, VKUser, gameUser, go, selectTournament}) => {
 			case Constants.Tabs.HOME_PROFILE:
 				return <Profile VKUser={VKUser}
 								gameUser={gameUser}
-								go={go}/>
+								go={go}
+								setPopout={setPopout}/>
 		}
 		return null
 	}

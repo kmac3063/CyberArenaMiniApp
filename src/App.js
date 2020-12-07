@@ -10,17 +10,20 @@ import TournamentInfoHome from "./panels/TournamentInfoHome";
 import StrManager from "./Model/StrManager";
 import Data from "./Model/Data";
 import ParticipantProfile from "./panels/ParticipantProfile";
+import GridCreator from "./panels/GridCreator";
 
 const App = () => {
 	//"deploy": "vk-miniapps-deploy" в scripts в package.json
 	const [activePanel, setActivePanel] = useState(Constants.Panels.HOME);
-	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+	const [popout, setPopout] = useState(null);
 
 	const [VKUser, setUser] = useState(null);
 	const [gameUser, setGameUser] = useState(null)
 
 	const [selectedTournament, setSelectedTournament] = useState(null);
 	const [selectedParticipant, setSelectedParticipant] = useState(null)
+
+	const [startTab, setStartTab] = useState(null)
 
 	const schemeAttribute = document.createAttribute('scheme');
 	schemeAttribute.value = 'space_gray';
@@ -54,6 +57,9 @@ const App = () => {
 	}, []);
 
 	const go = e => {
+		setStartTab(null)
+		if (e.currentTarget.dataset.tab)
+			setStartTab(e.currentTarget.dataset.tab)
 		setActivePanel(e.currentTarget.dataset.to);
 	};
 
@@ -66,23 +72,30 @@ const App = () => {
 	}
 
 	return (
-		<View activePanel={activePanel}>
+		<View activePanel={activePanel} popout={popout}>
 			<Home id={Constants.Panels.HOME}
 				  VKUser={VKUser}
 				  gameUser={gameUser}
 				  go={go}
-				  selectTournament={selectTournament}/>
+				  selectTournament={selectTournament}
+				  setPopout={setPopout}/>
 			<TournamentInfoHome id={Constants.Panels.TOURNAMENT_INFO_HOME}
 				VKUser={VKUser}
 				gameUser={gameUser}
 				go={go}
 				tournament={selectedTournament}
-				selectParticipant={selectParticipants}/>
+				selectParticipant={selectParticipants}
+				setPopout={setPopout}
+				startTab={startTab}/>
 			<ParticipantProfile id={Constants.Panels.PARTICIPANT_PROFILE}
-								go={go}
-								participant={selectedParticipant}
-								fetchedUser={VKUser}
-								tournament={selectedTournament}
+				go={go}
+				participant={selectedParticipant}
+				fetchedUser={VKUser}
+				tournament={selectedTournament}
+			/>
+			<GridCreator id={Constants.Panels.GRID_CREATOR}
+						 go={go}
+						 tournament={selectedTournament}
 			/>
 		</View>
 	);

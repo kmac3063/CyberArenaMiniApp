@@ -18,6 +18,8 @@ import "../styles.css"
 import Coliseum from "../img/coliseum.png";
 import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
 import StrManager from "../Model/StrManager";
+import Helper from "../Model/Helper";
+import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
 
 const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
     const [loading, setLoading] = useState(false)
@@ -135,9 +137,8 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
         {!loading ? loadAll() : null}
 
         <ModalRoot activeModal={activeModal}>
-            <CreateTournament id={Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT}
+            <CreateTournament id={Constants.Modals.CREATE_TOURNAMENT}
                 out={outModal}
-                close={closeModal}
                 create={createTournament}
                 onClose={closeModal}/>
         </ModalRoot>
@@ -154,7 +155,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                 {searchValueLoading ?
                     Data.getLoadTournaments(3, Constants.TournamentsPreviewSize.SMALL_QUAD).map((tournament) =>{
                         return <SimpleCell key={tournament.id}
-                            before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
+                            before={<Avatar mode="app" src={tournament.imgURL} size={72}/>}
                             description={
                                 <React.Fragment>
                                     <Caption><Div className={'recommend_place_holder_descr'} style={{marginTop : 6}}/></Caption>
@@ -172,12 +173,18 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                                    go(e)
                                 }}
                                 data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}
-                                before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
+                                before={<Avatar mode="app" src={tournament.imgURL} size={72}/>}
                                 description={
                                 <React.Fragment>
-                                    <Caption level="2" weight="regular" >{StrManager.get(StrManager.StrEnum.TOURNAMENTS_GAME_NAME)}{tournament.gameName}</Caption>
-                                    <Caption level="2" weight="regular">{StrManager.get(StrManager.StrEnum.TOURNAMENTS_GRID_TYPE)}{tournament.type}</Caption>
-                                    <Caption level="2" weight="regular">{StrManager.get(StrManager.StrEnum.TOURNAMENTS_START_TIME)}{tournament.dateBegin}</Caption>
+                                    <Caption level="2" weight="regular" >
+                                        {StrManager.get(StrManager.StrEnum.TOURNAMENTS_GAME_NAME)}
+                                        {tournament.gameName}</Caption>
+                                    <Caption level="2" weight="regular">
+                                        {StrManager.get(StrManager.StrEnum.TOURNAMENTS_GRID_TYPE)}
+                                        {tournament.type}</Caption>
+                                    <Caption level="2" weight="regular">
+                                        {StrManager.get(StrManager.StrEnum.TOURNAMENTS_START_TIME)}
+                                        {tournament.dateBegin}</Caption>
                                 </React.Fragment>
                             }>{tournament.name}
                         </SimpleCell>
@@ -200,7 +207,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                     // For test
                     // <Button  mode="tertiary" onClick={hide}>Hide</Button>
                     <Icon24Add style={{color : Constants.Colors.Dark.CONTEXT_BUTTON}}
-                               onClick={() => setActiveModal(Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT)}
+                               onClick={() => setActiveModal(Constants.Modals.CREATE_TOURNAMENT)}
                     />
                 }>
                     <Title level="3" weight="regular">{StrManager.get(StrManager.StrEnum.TOURNAMENTS_CREATED_HEADER)}</Title>
@@ -221,7 +228,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                                                     go(e)}
                                             }}
                                             data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}>
-                                    <ImageCard url={tournament.imgUrl}
+                                    <ImageCard url={tournament.imgURL}
                                                height={90}
                                                width={150}/>
                                 </span>})}
@@ -230,7 +237,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                     :
                     <Group separator={"hide"} style={{position : "relative", zIndex : 0, top: "-12px"}}>
                         <TournamentBanner
-                            buttonPressed={() => setActiveModal(Constants.Modals.TOURNAMENT_CREATE_TOURNAMENT)}/>
+                            buttonPressed={() => setActiveModal(Constants.Modals.CREATE_TOURNAMENT)}/>
                     </Group>
                 }
             </Group>
@@ -259,7 +266,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                                              go(e)}
                                      }}
                                      data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}>
-                                    <ImageCard url={tournament.imgUrl}
+                                    <ImageCard url={tournament.imgURL}
                                                height={60}
                                                width={90}/>
                                 </span>})}
@@ -290,7 +297,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                                 }
                             }}
                             data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}
-                            style={{backgroundImage : `url(${tournament.imgUrl})`,
+                            style={{backgroundImage : `url(${tournament.imgURL})`,
                                 backgroundPosition: "center",
                                 backgroundRepeat: "no-repeat",
                                 backgroundSize: "cover"}}>
@@ -306,7 +313,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                     {recommendedTournaments.map((tournament) => {
                         return (recommendedTournamentsLoading ? <SimpleCell
                             key={tournament.id}
-                            before={<Avatar mode="app" src={tournament.imgUrl} size={72}/>}
+                            before={<Avatar mode="app" src={tournament.imgURL} size={72}/>}
                             description={
                                 <React.Fragment>
                                     <Caption><Div className={'recommend_place_holder_descr'} style={{marginTop : 6}}/></Caption>
@@ -322,13 +329,19 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
                                     go(e)
                                 }}
                                 data-to = {Constants.Panels.TOURNAMENT_INFO_HOME}
-                                before={<Avatar mode="app" src={tournament.imgUrl} style={{objectFit : "cover"}} size={72}/>}
+                                before={<Avatar mode="app" src={tournament.imgURL} style={{objectFit : "cover"}} size={72}/>}
                                 description={
-                                    <React.Fragment>
-                                        <Caption level="2" weight="regular">Игра: {tournament.gameName}</Caption>
-                                        <Caption level="2" weight="regular">Тип сетки: {tournament.type}</Caption>
-                                        <Caption level="2" weight="regular">Начало: {tournament.dateBegin}</Caption>
-                                    </React.Fragment>
+                                <React.Fragment>
+                                    <Caption level="2" weight="regular">
+            {StrManager.get(StrManager.StrEnum.TOURNAMENTS_GAME_NAME)}: {tournament.gameName}
+                                    </Caption>
+                    <Caption level="2" weight="regular">
+            {StrManager.get(StrManager.StrEnum.TOURNAMENTS_GRID_TYPE)}: {StrManager.get(tournament.gridType)}
+                    </Caption>
+                    <Caption level="2" weight="regular">
+            {StrManager.get(StrManager.StrEnum.TOURNAMENTS_START_TIME)}: {Helper.getNormalDateView(tournament.dateBegin)}
+                    </Caption>
+                                </React.Fragment>
                                 }>{tournament.name}
                             </SimpleCell>)
                     })}

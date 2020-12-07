@@ -2,23 +2,28 @@ import Headline from "@vkontakte/vkui/dist/components/Typography/Headline/Headli
 import FormLayoutGroup from "@vkontakte/vkui/dist/components/FormLayoutGroup/FormLayoutGroup";
 import {Input} from "@vkontakte/vkui";
 import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
-const ChangeNicknameAlert = ({setPopout, saveNickname, gameUser}) => {
+const ChangeNickname = ({setPopout, saveNickname, gameUser}) => {
     const [inputValue, setInputValue] = useState(gameUser.nickname)
+    const [needClose, setNeedClose] = useState(false)
+
+    useEffect(() => {
+        if (needClose) {
+            saveNickname(inputValue)
+            setPopout(null)
+        }
+    }, [inputValue, needClose]);
 
     return <Alert
         actions={[{
             title: 'Отмена',
             mode: 'cancel',
-            action: () => {
-                setPopout(null)
-            }
+            autoclose: true
         }, {
             title: 'Сохранить',
             action: () => {
-                saveNickname(inputValue)
-                setPopout(null)
+                setNeedClose(true)
             },
         }]}
         onClose={() => {
@@ -36,4 +41,4 @@ const ChangeNicknameAlert = ({setPopout, saveNickname, gameUser}) => {
     </Alert>
 }
 
-export default ChangeNicknameAlert
+export default ChangeNickname
