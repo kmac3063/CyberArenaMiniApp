@@ -10,6 +10,7 @@ import StrManager from "./Model/StrManager";
 import Data from "./Model/Data";
 import ParticipantProfile from "./panels/ParticipantProfile";
 import GridCreator from "./panels/GridCreator";
+import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
 
 const App = () => {
 	//"deploy": "vk-miniapps-deploy" в scripts в package.json
@@ -32,8 +33,25 @@ const App = () => {
 		let t = window.location.search.indexOf("vk_language=");
 		let locale = window.location.search.slice(t + "vk_language=".length, t + "vk_language=".length + 2)
 		// locale = 'ge'
+
 		StrManager.setLocale(locale)
 
+		setPopout(<Alert
+			actionsLayout="vertical"
+			actions={[{
+				title: StrManager.get(StrManager.StrEnum.ALERT_DELETE),
+				autoclose: true,
+				mode: 'destructive',
+			}, {
+				title: StrManager.get(StrManager.StrEnum.ALERT_CANCEL),
+				autoclose: true,
+				mode: 'cancel'
+			}]}
+			onClose={() => {setPopout(null)}}
+		>
+			<h2>{locale}</h2>
+			<p>{StrManager.get(StrManager.StrEnum.ALERT_DELETE_QUESTION)}</p>
+		</Alert>)
 		bridge.subscribe(({ detail: { type, data }}) => {
 			// if (type === 'VKWebAppUpdateConfig') {
 			// 	const schemeAttribute = document.createAttribute('scheme');
