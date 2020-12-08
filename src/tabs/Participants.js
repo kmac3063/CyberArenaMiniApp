@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {Group, Separator, Spinner} from "@vkontakte/vkui";
-import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
-import Coliseum from "../img/coliseum.png"
 import Data from "../Model/Data";
 import SimpleCell from "@vkontakte/vkui/dist/components/SimpleCell/SimpleCell";
 import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";

@@ -19,7 +19,6 @@ import Coliseum from "../img/coliseum.png";
 import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
 import StrManager from "../Model/StrManager";
 import Helper from "../Model/Helper";
-import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
 
 const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
     const [loading, setLoading] = useState(false)
