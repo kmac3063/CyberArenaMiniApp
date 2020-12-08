@@ -2,14 +2,17 @@ import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
 import React, {useState} from "react";
 import StrManager from "../Model/StrManager";
 
-const ConfirmDeleteTournament = ({setPopout, deleteButtonClicked}) =>
+const ConfirmDeleteTournament = ({setPopout, deleteButtonClicked, go}) =>
     <Alert
         actionsLayout="vertical"
         actions={[{
             title: StrManager.get(StrManager.StrEnum.ALERT_DELETE),
             autoclose: true,
             mode: 'destructive',
-            action: deleteButtonClicked,
+            action: () => {
+                deleteButtonClicked()
+                go()
+            },
         }, {
             title: StrManager.get(StrManager.StrEnum.ALERT_CANCEL),
             autoclose: true,

@@ -12,6 +12,7 @@ import Profile from "../tabs/Profile";
 
 
 const Home = ({ id, VKUser, gameUser, go, selectTournament, setPopout}) => {
+
 	const [activeTab, setActiveTab] = useState(Constants.Tabs.HOME_TOURNAMENT)
 
 	const showTab = () => {

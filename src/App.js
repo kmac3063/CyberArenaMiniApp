@@ -11,9 +11,12 @@ import Data from "./Model/Data";
 import ParticipantProfile from "./panels/ParticipantProfile";
 import GridCreator from "./panels/GridCreator";
 import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
+import Debug from "./Debug/Debug";
+import {Spinner} from "@vkontakte/vkui";
 
 const App = () => {
 	//"deploy": "vk-miniapps-deploy" в scripts в package.json
+	const [loading, setLoading] = useState(true)
 	const [activePanel, setActivePanel] = useState(Constants.Panels.HOME);
 	const [popout, setPopout] = useState(null);
 
@@ -45,18 +48,26 @@ const App = () => {
 			const vkUser = await bridge.send('VKWebAppGetUserInfo');
 			setVKUser(vkUser);
 
-			// console.log("vkUser :")
-			// console.log(vkUser)
-			// console.log("")
-
 			await Data.initUser(vkUser)
-				// .then( () => {
-				// 	return Data.getGameUser(vkUser)
-				// })
-			setGameUser(Data.getGameUser(vkUser))
-			setPopout(null)
-			// TO-DO Запрос на сервер
-			// const gameUser = await
+			Data.getGameUser(vkUser).then(
+				(user) => {
+					if (Debug.DEBUG) {
+						console.log("Пользователь найден! : ")
+						console.log(user)
+					}
+					setGameUser(user)
+					setPopout(null)
+					console.log("10")
+					setLoading(false)
+					console.log("20")
+				})
+			.catch(e => {
+				if (Debug.DEBUG) {
+					console.log("Не найден пользователь : ")
+					console.log(vkUser)
+					console.log(e)
+				}
+			})
 		}
 
 		fetchData();
@@ -64,6 +75,7 @@ const App = () => {
 	}, []);
 
 	const go = e => {
+		// console.log(e)
 		setStartTab(null)
 		if (e.currentTarget.dataset.tab)
 			setStartTab(e.currentTarget.dataset.tab)
@@ -78,7 +90,7 @@ const App = () => {
 		setSelectedParticipant(participant)
 	}
 
-	return (
+	return (loading ? <Spinner/> :
 		<View activePanel={activePanel} popout={popout}>
 			<Home id={Constants.Panels.HOME}
 				  VKUser={VKUser}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Group, Header, Search, Separator, Spinner} from "@vkontakte/vkui";
+import {Group, Header, Search, Separator} from "@vkontakte/vkui";
 import Icon24Add from '@vkontakte/icons/dist/24/add';
 import Title from "@vkontakte/vkui/dist/components/Typography/Title/Title";
 import Icon24VoiceOutline from '@vkontakte/icons/dist/24/voice_outline';
@@ -19,6 +19,7 @@ import Coliseum from "../img/coliseum.png";
 import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
 import StrManager from "../Model/StrManager";
 import Helper from "../Model/Helper";
+import Debug from "../Debug/Debug";
 
 const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
     const [loading, setLoading] = useState(false)
@@ -47,43 +48,94 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
     const [searchFilterTournaments, setSearchFilterTournaments] = useState()
 
     useEffect(() => {
-        setLoading(false)
+        loadAll()
+        //setLoading(false)
     }, [])
 
-    const loadAll = () => {
-        if (myTournamentsLoading) {
-            Data.getMyTournaments(VKUser)
-                .then(tournaments => {
-                    setMyTournaments(tournaments)
-                    setMyTournamentsLoading(false)
-                })
-        }
+    const loadAll = async () => {
+        // делаем все турниры загрузкой
+        // делаем запрос на серв, ждем
+        // когда все туринры приходят, раскидываем
+        // одним проходом
 
-        if (participateTournamentsLoading) {
-            Data.getParticipateTournaments(VKUser)
-                .then(tournaments => {
-                    setParticipateTournaments(tournaments)
-                    setParticipateTournamentsLoading(false)
-                })
-        }
+        setMyTournamentsLoading(true)
+        setParticipateTournamentsLoading(true)
+        setHighlyRecommendedTournamentsLoading(true)
+        setRecommendedTournamentsLoading(true)
+        await Data.getAllTournaments()
+            .then((tournaments) => {
+                if (Debug.DEBUG) {
+                    // console.log("Tournaments:")
+                    // console.log(tournaments)
+                    // console.log(" ")
+                }
+                let my = []
+                let rec = []
+                let hRec = []
+                let part = []
 
-        if (highlyRecommendedTournamentsLoading) {
-            Data.getHighlyRecommendedTournaments(VKUser)
-                .then(tournaments => {
-                    setHighlyRecommendedTournaments(tournaments
-                        .slice(0,
-                            Math.min(Constants.NUMBER_OF_HIGHLY_REC_TOURNAMENT, tournaments.length)))
-                    setHighlyRecommendedTournamentsLoading(false)
-                })
-        }
+                for (let i = 0; i < tournaments.length; i++) {
+                    if (tournaments[i].creatorId === gameUser.id) {
+                        // console.log("Создатель в:")
+                        // console.log(tournaments[i])
+                        // console.log("")
+                        my.push(tournaments[i])
+                    }
+                    if (tournaments[i].participants.find(p => p.id === gameUser.id)) {
+                        // console.log("Участник в :")
+                        // console.log(tournaments[i])
+                        // console.log("")
+                        part.push(tournaments[i])
+                    }
+                }
+                rec = tournaments
+                hRec = tournaments.slice(0, Math.min(Constants.NUMBER_OF_HIGHLY_REC_TOURNAMENT, tournaments.length))
 
-        if (recommendedTournamentsLoading) {
-            Data.getRecommendedTournaments(VKUser)
-                .then(tournaments => {
-                    setRecommendedTournaments(tournaments)
-                    setRecommendedTournamentsLoading(false)
-                })
-        }
+                setMyTournaments(my)
+                setRecommendedTournaments(rec)
+                setHighlyRecommendedTournaments(hRec)
+                setParticipateTournaments(part)
+                setLoading(false)
+                setMyTournamentsLoading(false)
+                setParticipateTournamentsLoading(false)
+                setHighlyRecommendedTournamentsLoading(false)
+                setRecommendedTournamentsLoading(false)
+            })
+
+        //
+        // if (myTournamentsLoading) {
+        //     Data.getMyTournaments(gameUser)
+        //         .then(tournaments => {
+        //             setMyTournaments(tournaments)
+        //             setMyTournamentsLoading(false)
+        //         })
+        // }
+        //
+        // if (participateTournamentsLoading) {
+        //     Data.getParticipateTournaments(VKUser)
+        //         .then(tournaments => {
+        //             setParticipateTournaments(tournaments)
+        //             setParticipateTournamentsLoading(false)
+        //         })
+        // }
+        //
+        // if (highlyRecommendedTournamentsLoading) {
+        //     Data.getHighlyRecommendedTournaments(VKUser)
+        //         .then(tournaments => {
+        //             setHighlyRecommendedTournaments(tournaments
+        //                 .slice(0,
+        //                     Math.min(Constants.NUMBER_OF_HIGHLY_REC_TOURNAMENT, tournaments.length)))
+        //             setHighlyRecommendedTournamentsLoading(false)
+        //         })
+        // }
+        //
+        // if (recommendedTournamentsLoading) {
+        //     Data.getRecommendedTournaments(VKUser)
+        //         .then(tournaments => {
+        //             setRecommendedTournaments(tournaments)
+        //             setRecommendedTournamentsLoading(false)
+        //         })
+        // }
 
     }
 
@@ -96,8 +148,10 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
         closeModal()
     }
 
-    const createTournament = (tournament) => {
-        //TO-DO отправить на сервер
+    const createTournament = async (tournament) => {
+        console.log("CreateTournament")
+        await Data.createTournament(tournament)
+        await loadAll()
     }
 
     // For test
@@ -122,7 +176,7 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
         if (!text || text.length === 0) return null
         setSearchValueLoading(true)
         text = text.trim().toLowerCase()
-        Data.getAllTournaments(VKUser)
+        Data.getAllTournaments()
             .then(tournaments => {
                 tournaments = tournaments.filter((t) =>
                     t.name.toLowerCase().includes(text) || t.description.toLowerCase().includes(text))
@@ -133,13 +187,12 @@ const Tournament = ({VKUser, gameUser, go, selectTournament}) => {
     }
 
     return <React.Fragment>
-        {!loading ? loadAll() : null}
-
         <ModalRoot activeModal={activeModal}>
             <CreateTournament id={Constants.Modals.CREATE_TOURNAMENT}
                 out={outModal}
                 create={createTournament}
-                onClose={closeModal}/>
+                onClose={closeModal}
+                gameUser={gameUser}/>
         </ModalRoot>
 
         <Search icon={!searchValue || !searchValue.length ? <Icon24VoiceOutline/> : null} value={searchValue}

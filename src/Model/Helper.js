@@ -1,10 +1,13 @@
+import Debug from "../Debug/Debug";
+
 class Helper {
-    static convertImageToURL = (image, callback) => {
+    static convertImageToURL = async (image, callback) => {
         let reader = new FileReader()
         reader.onload = (e) => {
             callback(e.target.result)
         }
-        reader.readAsDataURL(image)
+        await reader.readAsDataURL(image)
+        return image;
     }
 
     static addHMSToDate = (d) => {
@@ -14,6 +17,9 @@ class Helper {
 
     //2000-12-12
     static getNormalDateView = (d) => {
+        // console.log("Date")
+        // console.log(d)
+        if (!d || !d.length || d.length < 10) return d;
         let date = d.slice(0, 10);
         let t = date.split('-')
         return  t[2] + '.' + t[1] + '.' + t[0]
@@ -31,34 +37,64 @@ class Helper {
         return ordered["vk_app_id"];
     }
 
-    static async  postData(url, data) {
-        // console.log()
-        // console.log(1)
-        // console.log(url)
-        // console.log(data)
-        let url1 = 'https://cyber-arena.fun/api/vk/contest/all';
-        let response = await fetch(url1).then(r => r.json()).then(r => console.log(r))
-            .catch(e => console.log(e))
-        // const response = fetch(url, {
-        //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        //     mode: 'no-cors', // no-cors, *cors, same-origin
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept' : '*/*',
-        //     },
-        //     body: JSON.stringify({vk_id : 2, image : null}) // body data type must match "Content-Type" header
-        // })
-            //.catch(e => console.log(e))
-            // .then((response) => response.json())
-            // .then(response => console.log(response));
-        // console.log(2)
-        // const data1 = await response.json();
-        // console.log(data1)
-        // let t = await response.json();
-        // console.log(3)
-        //console.log(t)
-        // console.log(4)
-        return "1"; // parses JSON response into native JavaScript objects
+    static async postData(url, data) {
+        if (Debug.DEBUG) {
+            // console.log("post url: " + url)
+            // console.log(url)
+            // console.log(data)
+            // console.log("")
+        }
+
+        const response = fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept' : 'application/json',
+            },
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        }).then(response => response.json()).then(r => console.log(r))
+            .catch(e => {
+                if (Debug.DEBUG) {
+                    console.log("Ошибка")
+                    console.log(e)
+                }
+            })
+    }
+
+    static async postWithData(url, data) {
+        if (Debug.DEBUG) {
+            // console.log("post url: " + url)
+            // console.log(url)
+            // console.log(data)
+            // console.log("")
+        }
+
+        const response = fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept' : 'application/json',
+            },
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        }).then(response => response.json())
+            .catch(e => {
+                if (Debug.DEBUG) {
+                    console.log("Ошибка")
+                    console.log(e)
+                }
+            })
+
+        return response; // parses JSON response into native JavaScript objects
+    }
+
+    static async getData(url) {
+        return fetch(url).then(response => response.json())
+            .catch(e => {
+                console.log("Get не получился url: " + url)
+                console.log(e)
+            })
     }
 }
 

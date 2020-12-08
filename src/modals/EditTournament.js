@@ -20,7 +20,7 @@ import TournamentInfo from "../img/400x240_tournament_preview.png";
 import Helper from "../Model/Helper";
 
 const EditTournament = ({id, tournament, saveTournament,
-                            deleteTournament, onClose, setPopout}) => {
+                            deleteTournament, onClose, setPopout, go}) => {
     const [name, setName] = useState(tournament.name);
     const [dateBegin, setDateBegin] = useState(tournament.dateBegin);
     const [dateEnd, setDateEnd] = useState(tournament.dateEnd);
@@ -32,8 +32,8 @@ const EditTournament = ({id, tournament, saveTournament,
     const [maxCommand, setMaxCommand] = useState(tournament.maxCommand);
     const [gameName, setGameName] = useState(tournament.gameName);
     const [description, setDescription] = useState(tournament.description);
-    const [imageURL, setImageURL] = useState(tournament.imgURL);
-    const [image, setImage] = useState(tournament.image)
+    const [imgURL, setImgURL] = useState(tournament.imgURL);
+    const [img, setIMG] = useState(tournament.img)
 
     const [allRequireFieldChecked, setAllRequireFieldChecked] = useState(false);
 
@@ -49,13 +49,14 @@ const EditTournament = ({id, tournament, saveTournament,
         maxCommand,
         gameName,
         description,
-        image,
-        imageURL])
+        img,
+        imgURL])
     // const [price, setPrice] = useState();
     // const [prize, setPrize] = useState();
 
     const buildTour = () => {
         let prop = {};
+        prop.creatorId = tournament.creatorId
         prop.name = name
         prop.dateBegin = dateBegin
         prop.dateEnd = dateEnd
@@ -66,8 +67,8 @@ const EditTournament = ({id, tournament, saveTournament,
         prop.maxCommand = maxCommand
         prop.gameName = gameName
         prop.description = description
-        prop.image = image
-        prop.imageURL = imageURL
+        prop.img = img
+        prop.imgURL = imgURL
         return prop;
     }
 
@@ -88,10 +89,10 @@ const EditTournament = ({id, tournament, saveTournament,
             groupType && groupType.length > 0 &&
             gameName && gameName.length > 0 &&
             description && description.length > 0 &&
-            image)
+            img)
     }
 
-    //useCallback(() => {setAllRequireFieldChecked(imageURL && imageURL.length > 0)}, [imageURL])
+    //useCallback(() => {setAllRequireFieldChecked(imgURL && imgURL.length > 0)}, [imgURL])
 
     const onDateEndBlur = () => {
         let today = new Date();
@@ -115,8 +116,8 @@ const EditTournament = ({id, tournament, saveTournament,
     const imageChange = (e) => {
         if (e && e.target && e.target.files && e.target.files[0]) {
             let tempImage = e.target.files[0]
-            setImage(tempImage)
-            Helper.convertImageToURL(tempImage, setImageURL)
+            setIMG(tempImage)
+            Helper.convertImageToURL(tempImage, setImgURL)
         }
     }
 
@@ -126,7 +127,11 @@ const EditTournament = ({id, tournament, saveTournament,
             <ModalPageHeader
                 left={<PanelHeaderButton onClick={onClose}><Icon24Cancel /></PanelHeaderButton>}
                 right={allRequireFieldChecked ?
-                    <PanelHeaderButton onClick={saveButtonClicked}>
+                    <PanelHeaderButton data-to={Constants.Panels.TOURNAMENT_INFO_HOME} onClick={(e) => {
+                        console.log(123)
+                        saveButtonClicked()
+
+                    }} >
                         <Icon24Done/>
                     </PanelHeaderButton> :
                     <PanelHeaderButton disabled><Icon24Done/></PanelHeaderButton>}>
@@ -254,7 +259,7 @@ const EditTournament = ({id, tournament, saveTournament,
                 display: "flex",
                 justifyContent: "center",
                 objectFit: "cover"}}>
-                <ImageCard url={imageURL ? imageURL : TournamentInfo}
+                <ImageCard url={imgURL ? imgURL : TournamentInfo}
                            height={120}
                            width={"100%"}/>
             </Div>
@@ -263,7 +268,13 @@ const EditTournament = ({id, tournament, saveTournament,
             <Button size="xl" mode="destructive"
                     onClick={() => setPopout(<ConfirmDeleteTournament
                         deleteButtonClicked={deleteTournament}
-                        setPopout={setPopout}/>)}>
+                        setPopout={setPopout}
+                        data-to={Constants.Panels.HOME}
+                        go={() => go({currentTarget :
+                                {dataset : {to : Constants.Panels.HOME}}
+                                    })
+                        }
+                        />)}>
                 {StrManager.get(StrManager.StrEnum.EDIT_TOURNAMENT_DELETE)}
             </Button>
        </Div>

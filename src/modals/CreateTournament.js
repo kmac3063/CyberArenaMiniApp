@@ -18,7 +18,7 @@ import ImageCard from "../Componentns/ImageCard";
 import TournamentInfo from "../img/400x240_tournament_preview.png";
 import Helper from "../Model/Helper";
 
-const CreateTournament = ({id, out, onClose, create}) => {
+const CreateTournament = ({id, out, onClose, create, gameUser}) => {
     // const [name, setName] = useState("Example");
     // const [dateBegin, setDateBegin] = useState();
     // const [dateEnd, setDateEnd] = useState();
@@ -65,6 +65,7 @@ const CreateTournament = ({id, out, onClose, create}) => {
 
     const buildTour = () => {
         let prop = {};
+        prop.creatorId = gameUser.id
         prop.name = name
         prop.dateBegin = dateBegin
         prop.dateEnd = dateEnd
@@ -75,8 +76,8 @@ const CreateTournament = ({id, out, onClose, create}) => {
         prop.maxCommand = maxCommand
         prop.gameName = gameName
         prop.description = description
-        prop.image = image
-        prop.imageURL = imageURL
+        prop.img = image
+        prop.imgURL = imageURL
         return prop;
     }
 

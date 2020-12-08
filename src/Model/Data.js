@@ -11,15 +11,22 @@ import a4 from '../img/avatars/4.png'
 import a5 from '../img/avatars/5.png'
 import a6 from '../img/avatars/6.png'
 import Helper from "./Helper";
+import Debug from "../Debug/Debug";
+import Test1 from "../img/test1.jpg"
+import Test2 from "../img/test2.jpg"
+import Test3 from "../img/test3.jpg"
 
 class Data {
     // TOURNAMENTS
-    static getMyTournaments(user) {
+    static getMyTournaments(gameUser) {
+        console.log("20")
+        // return Helper.
+        // https://cyber-arena.fun/api/vk/player/contests/?player_id=
         return fetch("https://jsonplaceholder.typicode.com/photos?id=1&id=2&id=3&id=4&id=5&id=6&id=7")
             .then(response => response.json())
             .then(tournaments => tournaments.map((t) => {
                         t.creatorId = 1
-                        t.imgURL = user.photo_200
+                        t.imgURL = "https://sun5-4.userapi.com/impg/EsUbC6OaOFChaUcvowOZ6g1nkf1vsrgFLylzHA/6sqihZVyTr8.jpg?size=200x0&quality=96&crop=3,257,672,1680&sign=973fabb101633fcadbc359d530b5a873&ava=1"
                         t.name = "Paladins Pro Circuit 1/4 final"
                         t.gameName = "Paladins"
                         t.gridType = Constants.TournamentParams.GridType.SINGLE_ELIMINATION
@@ -110,21 +117,143 @@ class Data {
         return tournaments
     }
 
-    static getAllTournaments(user) {
-        return this.getMyTournaments(user);
+    static async getAllTournaments() {
+        const allTournaments = await Helper.getData("https://cyber-arena.fun/api/vk/contest/all/")
+        // console.log("All Tournaments:")
+        //
+        // console.log(allTournaments)
+        let tournaments = allTournaments.map((t) => {
+            let tour = {
+                id : t.id,
+                name : t.name,
+                gameName : t.game,
+                description : t.description,
+                rules : t.rules,
+                dateBegin : t.datetime_begin.slice(0, 10),
+                dateEnd : t.datetime_end.slice(0, 10),
+                creatorId : t.creator_id,
+
+                // image : t.image,
+                imgURL : Data.getImage(t.id),
+                img : Data.getImage(t.id),
+                privateType : t.public ? Constants.TournamentParams.PrivateType.OPEN :
+                    Constants.TournamentParams.PrivateType.PRIVATE,
+                gridType : Constants.TournamentParams.GridType.SINGLE_ELIMINATION,
+                maxCommand : t.max_people,
+                participants : t.participants ? t.participants : [],
+                //current_stage : 0,
+                //matches : []
+            }
+            return tour;
+        })
+        return tournaments;
+        //return this.getMyTournaments(user);
     }
 
     static deleteTournament(tournament) {
-        // TODO отправляем на удаление
+        fetch(`https://cyber-arena.fun/api/vk/contest/${tournament.id}/`, {
+            method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept' : 'application/json',
+            },
+        }).then(response => response.json())
+            .catch(e => {
+                if (Debug.DEBUG) {
+                    console.log("Ошибка")
+                    console.log(e)
+                }
+            })
     }
 
-    static createTournament(newTournament) {
+    static async createTournament(newTournament) {
+        let tourJson = {
+            name : newTournament.name,
+            game : newTournament.gameName,
+            description : newTournament.description,
+            rules : newTournament.rules,
+            datetime_begin : Helper.addHMSToDate(newTournament.dateBegin),
+            datetime_end : Helper.addHMSToDate(newTournament.dateEnd),
+            creator_id : newTournament.creatorId,
 
+            // image : newTournament.image,
+            image : null,
+            // image : newTournament.img,
+            public : newTournament.privateType === Constants.TournamentParams.PrivateType.OPEN,
+
+            // grid_type : newTournament.,
+            grid_type : 0,
+
+            max_people : newTournament.maxCommand,
+            participants : [],
+            current_stage : 0,
+            matches : []
+        }
+        // console.log("Создаю: ")
+        // console.log(tourJson)
+        Helper.postWithData("https://cyber-arena.fun/api/vk/contest/new/", tourJson)
+
+        // prop.creatorId = gameUser.id
+        // prop.name = name
+        // prop.dateBegin = dateBegin
+        // prop.dateEnd = dateEnd
+        // prop.rules = rules
+        // prop.groupType = groupType
+        // prop.gridType = gridType
+        // prop.privateType = privateType
+        // prop.maxCommand = maxCommand
+        // prop.gameName = gameName
+        // prop.description = description
+        // prop.image = image
+        // prop.imageURL = imageURL
     }
 
-    static updateTournament(editedTournament) {
+    static async updateTournament(editedTournament) {
 
+        let tourJson = {
+            id : editedTournament.id,
+            name : editedTournament.name,
+            game : editedTournament.gameName,
+            description : editedTournament.description,
+            rules : editedTournament.rules,
+            datetime_begin : Helper.addHMSToDate(editedTournament.dateBegin),
+            datetime_end : Helper.addHMSToDate(editedTournament.dateEnd),
+            creator_id : editedTournament.creatorId,
+
+            // image : newTournament.image,
+            image : null,
+            // image : newTournament.img,
+            public : editedTournament.privateType === Constants.TournamentParams.PrivateType.OPEN,
+
+            // grid_type : newTournament.,
+            grid_type : 0,
+
+            max_people : editedTournament.maxCommand,
+            participants : editedTournament.participants ? editedTournament.participants : [],
+            current_stage : 0,
+            matches : []
+        }
+        //
+        // console.log(tourJson)
+
+        await fetch(`https://cyber-arena.fun/api/vk/contest/${editedTournament.id}/`, {
+            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept' : 'application/json',
+            },
+            body: JSON.stringify(tourJson) // body data type must match "Content-Type" header
+            }).then(response => response.json()).then(r => console.log(r))
+            .catch(e => {
+                if (Debug.DEBUG) {
+                    console.log("Ошибка")
+                    console.log(e)
+                }
+            })
     }
+
     static getTournamentsWithUser(user) {
 
     }
@@ -139,17 +268,13 @@ class Data {
 
     // USERS
 
-    static initUser(VKUser) {
-        // GameUser model : vk_id, nickname, ava, games
-        Helper.postData('https://cyber-arena.fun/api/vk/player/new', {
+    static async initUser(VKUser) {
+        await Helper.postData('https://cyber-arena.fun/api/vk/player/new/', {
             vk_id : VKUser.id,
             nickname : `${VKUser.first_name} ${VKUser.last_name}`,
             ava : null,
             games : "",
         })
-        // .then((data) => {
-        //     console.log(data); // JSON data parsed by `response.json()` call
-        // });
     }
 
     static updateUser(user) {
@@ -160,14 +285,17 @@ class Data {
 
     }
 
-    static getGameUser(VKUser) {
-        // запрос в бд на юзера
-        // console.log(user)
-        return {avatarURL : VKUser.photo_200,
-                id : VKUser.id,
-                nickname : "amazingMan777",
-                games : "Among us, DOTA 2, PUBG"
+    static async getGameUser(VKUser) {
+        let gameUser = await Helper.getData('https://cyber-arena.fun/api/vk/player/' + VKUser.id +'/')
+        if (Debug.DEBUG) {
+            console.log("GameUser :")
+            console.log(gameUser)
         }
+        gameUser = {id : gameUser.vk_id,
+            nickname : gameUser.nickname,
+            imgURL : gameUser.ava,
+            games : gameUser.games}
+        return gameUser
     }
 
     static getAvatars() {
@@ -282,6 +410,16 @@ class Data {
             games.push({name : names[i], id : i + 1})
         }
         return games
+    }
+
+    static getImage(id) {
+        let t = id % 3
+        if (t === 0)
+            return Test1
+        else if (t === 1)
+            return Test2
+        else if (t === 2)
+            return Test3
     }
 }
 

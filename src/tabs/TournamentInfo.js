@@ -73,6 +73,7 @@ const TournamentInfo = ({VKUser, gameUser, go, tournament, setPopout}) => {
 
     const saveEditedTournament = (editedTournament) => {
         Data.updateTournament(editedTournament)
+        go({currentTarget : {dataset : {to : Constants.Panels.HOME}}})
     }
 
     const deleteTournament = () => {
@@ -87,7 +88,8 @@ const TournamentInfo = ({VKUser, gameUser, go, tournament, setPopout}) => {
                             saveTournament={saveEditedTournament}
                             deleteTournament={deleteTournament}
                             setPopout={setPopout}
-                            onClose={() => setActiveModal(null)}/>
+                            onClose={() => setActiveModal(null)}
+                            go={go}/>
         </ModalRoot>
 
         <Div style={{
