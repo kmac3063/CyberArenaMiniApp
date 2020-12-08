@@ -32,6 +32,7 @@ const App = () => {
 	useEffect(() => {
 		let t = window.location.search.indexOf("vk_language=");
 		let locale = window.location.search.slice(t + "vk_language=".length, t + "vk_language=".length + 2)
+		// locale = 'ge'
 		StrManager.setLocale(locale)
 
 		bridge.subscribe(({ detail: { type, data }}) => {

@@ -17,7 +17,7 @@ const ConfirmDeleteTournament = ({setPopout, deleteButtonClicked}) =>
         }]}
         onClose={() => {setPopout(null)}}
     >
-        <h2>{StrManager.get(StrManager.StrEnum.ALERT_CONFIRM)}</h2>
+        <h2>{StrManager.get(StrManager.StrEnum.ALERT_CONFIRM_ACTION)}</h2>
         <p>{StrManager.get(StrManager.StrEnum.ALERT_DELETE_QUESTION)}</p>
     </Alert>
 
