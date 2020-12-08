@@ -2,6 +2,7 @@ import sTournamentPreview from "../img/100x100_tournament_preview.png"
 import mTournamentPreview from "../img/200x120_tournament_preview.png"
 import lTournamentPreview from "../img/400x240_tournament_preview.png"
 import Constants from "./Constants";
+import bridge from '@vkontakte/vk-bridge';
 
 import a1 from '../img/avatars/1.png'
 import a2 from '../img/avatars/2.png'
@@ -9,6 +10,7 @@ import a3 from '../img/avatars/3.png'
 import a4 from '../img/avatars/4.png'
 import a5 from '../img/avatars/5.png'
 import a6 from '../img/avatars/6.png'
+import Helper from "./Helper";
 
 class Data {
     // TOURNAMENTS
@@ -228,8 +230,8 @@ class Data {
         // const vkUsers = await bridge.send("VKWebAppCallAPIMethod",
         //     {"method": "users.get", "request_id": "32test",
         //         "params": {user_ids: usersURL, fields: "bdate,city", "v":"5.126", "access_token":token}})
-
-        //return vkUsers.response
+        //
+        // return vkUsers.response
 
         return [
             {id : 1, first_name : "Потап", last_name : "Потапов", city : {title : "Moskow"}, bdate : "01.01.2000"},
@@ -241,7 +243,9 @@ class Data {
         ]
     }
 
+    static async getUserLocale(user) {
 
+    }
 
     // ANOTHER
 
