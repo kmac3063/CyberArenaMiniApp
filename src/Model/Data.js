@@ -140,7 +140,16 @@ class Data {
     // USERS
 
     static initUser(VKUser) {
-
+        // GameUser model : vk_id, nickname, ava, games
+        Helper.postData('https://cyber-arena.fun/api/vk/player/new', {
+            vk_id : VKUser.id,
+            nickname : `${VKUser.first_name} ${VKUser.last_name}`,
+            ava : null,
+            games : "",
+        })
+        // .then((data) => {
+        //     console.log(data); // JSON data parsed by `response.json()` call
+        // });
     }
 
     static updateUser(user) {

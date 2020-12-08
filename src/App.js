@@ -17,7 +17,7 @@ const App = () => {
 	const [activePanel, setActivePanel] = useState(Constants.Panels.HOME);
 	const [popout, setPopout] = useState(null);
 
-	const [VKUser, setUser] = useState(null);
+	const [VKUser, setVKUser] = useState(null);
 	const [gameUser, setGameUser] = useState(null)
 
 	const [selectedTournament, setSelectedTournament] = useState(null);
@@ -43,15 +43,20 @@ const App = () => {
 
 		async function fetchData() {
 			const vkUser = await bridge.send('VKWebAppGetUserInfo');
-			setUser(vkUser);
+			setVKUser(vkUser);
 
-			
+			// console.log("vkUser :")
+			// console.log(vkUser)
+			// console.log("")
 
+			await Data.initUser(vkUser)
+				// .then( () => {
+				// 	return Data.getGameUser(vkUser)
+				// })
+			setGameUser(Data.getGameUser(vkUser))
+			setPopout(null)
 			// TO-DO Запрос на сервер
 			// const gameUser = await
-			const gameUser = Data.getGameUser(vkUser)
-			setGameUser(gameUser)
-			setPopout(null)
 		}
 
 		fetchData();
