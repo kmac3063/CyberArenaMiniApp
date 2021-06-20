@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/CyberArenaMiniApp/static/css/main.d327c39e.chunk.css",
-    "main.js": "/CyberArenaMiniApp/static/js/main.173dbdb7.chunk.js",
-    "main.js.map": "/CyberArenaMiniApp/static/js/main.173dbdb7.chunk.js.map",
+    "main.js": "/CyberArenaMiniApp/static/js/main.add90a8c.chunk.js",
+    "main.js.map": "/CyberArenaMiniApp/static/js/main.add90a8c.chunk.js.map",
     "runtime-main.js": "/CyberArenaMiniApp/static/js/runtime-main.04caa4c7.js",
     "runtime-main.js.map": "/CyberArenaMiniApp/static/js/runtime-main.04caa4c7.js.map",
     "static/css/2.4df9e7ca.chunk.css": "/CyberArenaMiniApp/static/css/2.4df9e7ca.chunk.css",
@@ -25,6 +25,6 @@
     "static/css/2.4df9e7ca.chunk.css",
     "static/js/2.c0300402.chunk.js",
     "static/css/main.d327c39e.chunk.css",
-    "static/js/main.173dbdb7.chunk.js"
+    "static/js/main.add90a8c.chunk.js"
   ]
 }
